@@ -1,6 +1,12 @@
 .header{
   width: 100%;
-  margin-top: 45px;
 
-  background-color: black;
+  padding-top: 45px;
+
+  border-bottom: 1px solid silver ;
+
+  margin-bottom: 40px;
+
+
 }
+

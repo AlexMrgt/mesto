@@ -1,0 +1,16 @@
+.popup__description{
+  margin-bottom: 48px;
+}
+
+.popup__description:focus{
+  outline-color: royalblue;
+}
+
+
+@media screen and (max-width: 730px){
+  .popup__description{
+    margin-bottom: 45px;
+
+
+  }
+}

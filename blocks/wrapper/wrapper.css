@@ -1,6 +1,11 @@
 .wrapper{
 
-  width: 68.9%;
-  /*background-color: burlywood;*/
-
+  max-width: 1280px;
 }
+
+@media screen and (max-width:900px){
+  .wrapper{
+    width :100%;
+  }
+}
+

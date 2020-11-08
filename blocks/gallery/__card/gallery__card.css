@@ -1,0 +1,11 @@
+.gallery__card{
+  background-color: white;
+  border-radius: 4%;
+  overflow: hidden;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+}
+

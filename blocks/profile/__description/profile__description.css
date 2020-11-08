@@ -1,0 +1,33 @@
+.profile__description{
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+
+  margin:5px 0 0 0;
+  padding: 0;
+
+
+
+  cursor: default;
+
+  grid-area: description;
+}
+
+@media screen and (max-width: 898x){
+  .profile__description{
+    font-size: 16px;
+  }
+}
+
+
+
+@media screen and (max-width: 865px){
+  .profile__description{
+    align-self: center;
+    justify-self: center;
+
+    margin-bottom: 36px;
+  }
+}

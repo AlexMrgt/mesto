@@ -1,5 +1,14 @@
 .root{
+
+  position: relative;
+
   display: flex;
   justify-content: center;
+
+
+  font-family: 'Inter','Arial', 'Helvetica', sans-serif;
+  color: white;
   background-color: black;
+  min-width: 320px;
+
 }
