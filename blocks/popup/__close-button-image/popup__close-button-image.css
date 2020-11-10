@@ -1,5 +1,6 @@
 .popup__close-button-image{
-  transform: rotate(-45deg) ;
+
+  transform: rotate(-45deg);
 
   width: 40px;
   height: 40px;
