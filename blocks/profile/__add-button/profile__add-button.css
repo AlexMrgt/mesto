@@ -1,4 +1,7 @@
 .profile__add-button{
+  border: none;
+  outline: none;
+  background-color: black;
 
   justify-self: end;
   align-self: center;

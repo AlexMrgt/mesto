@@ -28,6 +28,9 @@
     align-self: center;
     justify-self: center;
 
+    font-size: 14px;
+    line-height: 17px;
+
     margin-bottom: 36px;
   }
 }

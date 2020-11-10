@@ -5,8 +5,11 @@
   display: flex;
   justify-content: center;
 
-
   font-family: 'Inter','Arial', 'Helvetica', sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+
   color: white;
   background-color: black;
   min-width: 320px;
