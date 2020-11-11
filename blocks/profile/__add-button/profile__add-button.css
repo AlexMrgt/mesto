@@ -18,9 +18,9 @@
   transition: 0.2s;
 }
 
-@media screen and (max-width: 865px){
+@media screen and (max-width: 898px){
   .profile__add-button{
-    align-self: center;
+
     justify-self: center;
   }
 }

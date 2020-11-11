@@ -6,19 +6,26 @@
   line-height: 48px;
 
   margin:0;
+  margin-top: 25px;
   padding: 0;
 
   cursor: default;
 
   grid-area: name;
-  align-self: end;
 }
 
 @media screen and (max-width: 898px){
   .profile__name{
 
+    margin-top: 0;
+    margin-bottom: 15px;
+
+    text-align: end;
+
     font-size: 27px;
     line-height: 33px;
+
+
   }
 }
 

@@ -7,3 +7,21 @@
     margin-left: 8.5%;
   }
 }
+
+
+@media screen and (max-width:600px){
+  .header__logo{
+    margin-left: 8.5%;
+
+    width: 100px;
+    height: 24px;
+
+    margin-bottom: 30px;
+
+  }
+}
+
+
+
+
+

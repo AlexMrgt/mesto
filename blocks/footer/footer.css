@@ -1,13 +1,9 @@
 .footer{
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 22px;
 
   color: #545454;
-  padding-bottom: 60px;
-
   cursor: default;
+
+  margin-bottom: 60px;
 }
 
 
@@ -22,6 +18,7 @@
 @media screen and (max-width: 600px){
   .footer{
     margin-left: 6%;
+    margin-bottom: 36px;
 
     font-size: 14px;
     line-height: 17px;

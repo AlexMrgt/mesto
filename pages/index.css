@@ -22,21 +22,24 @@
 @import url("../blocks/profile/__name/profile__name.css");
 @import url("../blocks/profile/__description/profile__description.css");
 @import url("../blocks/profile/__edit-button/profile__edit-button.css");
+@import url("../blocks/profile/__edit-button-image/profile__edit-button-image.css");
 @import url("../blocks/profile/__add-button/profile__add-button.css");
-
+@import url("../blocks/profile/__add-button-image/profile__add-button-image.css");
 
 /* gallery */
 
 @import url("../blocks/gallery/gallery.css");
-@import url("../blocks/gallery/__card/gallery__card.css");
-@import url("../blocks/gallery/__title/gallery__title.css");
-@import url("../blocks/gallery/__picture/gallery__picture.css");
-@import url("../blocks/gallery/__like-button/gallery__like-button.css");
+
+@import url("../blocks/card/card.css");
+@import url("../blocks/card/__picture/card__picture.css");
+@import url("../blocks/card/__title/card__title.css");
+@import url("../blocks/card/__like-button/card__like-button.css");
 
 
 /* footer */
 
 @import url("../blocks/footer/footer.css");
+@import url("../blocks/footer/__text/footer__text.css");
 
 
 /* popup */

@@ -15,23 +15,16 @@
   width: 100%;
 }
 
+
 @media screen and (max-width: 898px){
   .profile{
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
 
-
-@media screen and (max-width: 865px){
-  .profile{
     grid-template-columns: repeat(2, auto);
     grid-template-rows: repeat(4, auto);
 
     grid-template-areas:
     "photo photo"
-    "name edit-button"
+    "name edit-button "
     "description description"
     "add-button add-button";
 
@@ -39,4 +32,16 @@
     align-items: center;
   }
 
+
+
+}
+
+
+@media screen and (max-width: 898px){
+  .profile{
+    width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 36px;
+  }
 }
