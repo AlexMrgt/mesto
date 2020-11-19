@@ -1,4 +1,4 @@
-.popup__close-button-image{
+.popup__close-popup-image{
 
   transform: rotate(-45deg);
 
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 600px){
-  .popup__close-button-image{
+  .popup__close-popup-image{
 
     width: 26px;
     height: 26px;

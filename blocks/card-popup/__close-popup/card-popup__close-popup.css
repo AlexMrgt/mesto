@@ -1,0 +1,18 @@
+.card-popup__close-popup{
+  border: none;
+  outline: none;
+  background: none;
+
+  position: fixed;
+  right: -45px;
+  top: -45px;
+
+  transition: 0.2s;
+
+  cursor: pointer;
+}
+
+.card-popup__close-popup:hover{
+
+  opacity: 0.6;
+}
