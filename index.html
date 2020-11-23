@@ -46,15 +46,6 @@
           <p class="no-cards__text">Ты чево наделал...</p>
         </div>
 
-        <template id="card-template">
-          <article class="card">
-            <button type="button" class="card__delete-card"></button>
-            <img src="#" alt="#" class="card__picture">
-            <h2 class="card__title"></h2>
-            <button type="button" class="card__like"></button>
-          </article>
-        </template>
-
       </section>
 
     </main>
@@ -68,7 +59,7 @@
   <div class="popup popup_scope_edit">
 
     <div class="popup__wrapper">
-      <form class="popup__form popup__form_scope_edit" name="popup-form">
+      <form class="popup__form popup__form_scope_edit" name="popup-edit-form">
 
         <button type="button" class="popup__close-popup">
           <img class="popup__close-popup-image" src="./images/popup/close-icon.svg"
@@ -79,7 +70,7 @@
           autocomplete="off" required>
         <input type="text" class="popup__form-field popup__form-field_scope_description" name="description"
           maxlength="45" autocomplete="off" required>
-        <input name="submit-button" type="submit" value="Сохранить" class="popup__save-button">
+        <input name="edit-submit-button" type="submit" value="Сохранить" class="popup__save-button">
 
       </form>
     </div>
@@ -89,7 +80,7 @@
   <div class="popup popup_scope_add">
 
     <div class="popup__wrapper">
-      <form class="popup__form popup__form_scope_add" name="popup-form">
+      <form class="popup__form popup__form_scope_add" name="popup-add-form">
 
         <button type="button" class="popup__close-popup">
           <img class="popup__close-popup-image" src="./images/popup/close-icon.svg"
@@ -101,16 +92,13 @@
           name="place-name" maxlength="50" placeholder="Название" required>
         <input type="text" class="popup__form-field popup__form-field_scope_place-url" autocomplete="off"
           name="place-url" placeholder="Ссылка на картинку" required>
-        <input name="submit-button" type="submit" value="Создать" class="popup__save-button">
+        <input name="add-submit-button" type="submit" value="Создать" class="popup__save-button">
 
       </form>
     </div>
 
   </div>
 
-  <!-- честно пытался сделать с figure из-за удобной подписи,
-        но управлять размерами самого figure настолько
-        неудобно, что отказался от этой идеи -->
   <div class="popup popup_scope_picture">
 
     <div class="card-popup">
@@ -126,10 +114,17 @@
 
   </div>
 
-  <div class="overlay">
-  </div>
+  <template id="card-template">
+    <article class="card">
+      <button type="button" class="card__delete-card"></button>
+      <img src="#" alt="#" class="card__picture">
+      <h2 class="card__title"></h2>
+      <button type="button" class="card__like"></button>
+    </article>
+  </template>
 
-  <script src="./scripts/index.js"></script>
+  <script type="module" src="./scripts/index.js"></script>
+
 </body>
 
 </html>

@@ -26,6 +26,7 @@
 @import url("../blocks/profile/__add-card/profile__add-card.css");
 @import url("../blocks/profile/__add-card-image/profile__add-card-image.css");
 
+
 /* gallery */
 
 @import url("../blocks/gallery/gallery.css");
@@ -80,11 +81,6 @@
 @import url("../blocks/card-popup/__close-popup/card-popup__close-popup.css");
 @import url("../blocks/card-popup/__close-popup-image/card-popup__close-popup-image.css");
 
-
-/* overlay */
-
-@import url("../blocks/overlay/overlay.css");
-@import url("../blocks/overlay/_active/overlay_active.css");
 
 /* no-cards */
 

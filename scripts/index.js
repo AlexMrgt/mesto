@@ -1,4 +1,13 @@
-const overlay = document.querySelector(".overlay");
+
+/*
+  В ревью было требование вынести содержимое дефолтных
+  карточек в отдельный файл, этот способ, наверное, неплох,
+  но поддерживается только с Safari 10.1/Chrome 61/Firefox 60/Edge 16, а в IE вообще не реализован.
+  Видимо, это не универсальный способ.
+*/
+import {defaultCardsPropertiesSet as defaults} from "./modules/__defaultCardProps/modules__defaultCardProps.js";
+
+const defaultCardsProperties = defaults;
 
 const editModal = document.querySelector(".popup_scope_edit");
 const editForm = editModal.querySelector(".popup__form_scope_edit");
@@ -27,44 +36,6 @@ const gallery = document.querySelector(".gallery");
 
 const cardTemplate =  document.querySelector('#card-template').content;
 
-const defaultCardsProperties = [
-  {
-    caption:" Гора Эльбрус",
-    url: "./images//gallery/Эльбрус.jpg",
-    alt:"Фото горы Эльбрус"
-  },
-
-  {
-    caption:"Аракульские Шиханы",
-    url: "./images/gallery/Шиханы.jpg",
-    alt: "Фото Аракульских Шиханов"
-  },
-
-  {
-    caption:"Джейъаско-Ассинский заповедник",
-    url: "./images/gallery/Джейъаско-Ассинский_заповедник.jpg",
-    alt: "Фото Джейъаско-Ассинского заповедника",
-  },
-
-  {
-    caption: "Ключевая сопка",
-    url: "./images/gallery/Ключевая_сопка.jpg",
-    alt: "Фото вулкана Ключевая Сопка"
-  },
-
-  {
-    caption: "Кунгурская_пещера",
-    url: "./images/gallery/Кунгурская_пещера.jpg",
-    alt: "Фото Кунгурской пещеры"
-  },
-
-  {
-    caption: "Ленские столбы",
-    url: "./images/gallery/Ленские_столбы.jpg",
-    alt: "Фото Ленских столбов"
-  },
-]
-
 /*С именованием ф-ий/переменных не очень понятно: слово add обычно используется
   именно как описание фунционала, т.е. ф-я что-то добавляет,
   а тут add/edit - это просто идентификатор попапа,
@@ -73,18 +44,12 @@ const defaultCardsProperties = [
 
 function openModal(modal) {
 
-  overlay.classList.add("overlay_active");
   modal.classList.add("popup_active");
-
-  if (modal.classList.contains("popup_scope_edit"))
-    setFormDefaultValues();
 }
 
 function closeModal(modal) {
 
-  overlay.classList.remove("overlay_active");
   modal.classList.remove("popup_active");
-
 }
 
 function setFormDefaultValues() {
@@ -115,10 +80,12 @@ function addFormSubmitHandler(evt){
 function createCard(sourse, title, alternative = title){
 
   const card = cardTemplate.cloneNode(true);
+  const cardPicture = card.querySelector(".card__picture");
+  const cardTitle = card.querySelector(".card__title");
 
-  card.querySelector(".card__picture").src = sourse;
-  card.querySelector(".card__picture").alt = alternative;
-  card.querySelector(".card__title").textContent = title;
+  cardPicture.src = sourse;
+  cardPicture.alt = alternative;
+  cardTitle.textContent = title;
 
   card.querySelector(".card__like").addEventListener('click', evt => {
 
@@ -131,7 +98,7 @@ function createCard(sourse, title, alternative = title){
   */
   card.querySelector(".card__delete-card").addEventListener('click', evt => {
 
-    evt.target.parentElement.remove();
+    evt.target.closest(".card").remove();
 
     if (!gallery.querySelector(".card")) {
       renderNoCards();
@@ -174,6 +141,7 @@ function renderHasCards(){
 function setCardPopupContent(src, caption){
 
   cardModalPicture.src = src;
+  cardModalPicture.alt = caption;
   cardModalCaption.textContent = caption;
 }
 
@@ -182,6 +150,7 @@ renderDefaultCards(defaultCardsProperties);
 profileEditButton.addEventListener("click", () => {
 
   openModal(editModal);
+  setFormDefaultValues();
 })
 editCloseButton.addEventListener("click", () => {
 
@@ -192,6 +161,9 @@ editForm.addEventListener("submit", editFormSubmitHandler);
 profileAddButton.addEventListener("click", () => {
 
   openModal(addModal);
+  addPlaceName.value = '';
+  addPlaceUrl.value = '';
+
 })
 addCloseButton.addEventListener("click", () => {
 
