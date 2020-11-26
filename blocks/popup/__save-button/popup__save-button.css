@@ -19,11 +19,9 @@
   cursor: pointer;
 }
 
-.popup__save-button:hover{
-
+.popup__save-button:hover:enabled{
   opacity: 0.8;
   transition: 0.15s;
-
 }
 
 @media screen and (max-width: 600px){

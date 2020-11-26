@@ -59,18 +59,32 @@
   <div class="popup popup_scope_edit">
 
     <div class="popup__wrapper">
-      <form class="popup__form popup__form_scope_edit" name="popup-edit-form">
+      <form class="popup__form popup__form_scope_edit" name="popup-edit-form" novalidate>
 
         <button type="button" class="popup__close-popup">
           <img class="popup__close-popup-image" src="./images/popup/close-icon.svg"
             alt="Кнопка 'Закрыть всплывающее окно'">
         </button>
         <h2 class="popup__header">Редактировать профиль</h2>
-        <input type="text" class="popup__form-field popup__form-field_scope_name" name="name" maxlength="20"
-          autocomplete="off" required>
-        <input type="text" class="popup__form-field popup__form-field_scope_description" name="description"
-          maxlength="45" autocomplete="off" required>
-        <input name="edit-submit-button" type="submit" value="Сохранить" class="popup__save-button">
+
+        <label class="popup__form-label">
+
+          <input type="text" id="name-input" class="popup__field popup__field_scope_name" name="name" minlength="2" maxlength="40"
+            autocomplete="off" required>
+          <span id="name-input-error" class="popup__input-error"></span>
+
+        </label>
+
+        <label class="popup__form-label">
+
+          <input type="text" id="description-input"  class="popup__field popup__field_scope_description" name="description" minlength="2"
+            maxlength="200" autocomplete="off" required>
+
+          <span id="description-input-error" class="popup__input-error"></span>
+
+        </label>
+
+        <button type="submit" class="popup__save-button popup__save-button_scope_edit">Сохранить</button>
 
       </form>
     </div>
@@ -80,19 +94,28 @@
   <div class="popup popup_scope_add">
 
     <div class="popup__wrapper">
-      <form class="popup__form popup__form_scope_add" name="popup-add-form">
+
+      <form class="popup__form popup__form_scope_add" name="popup-add-form" novalidate>
 
         <button type="button" class="popup__close-popup">
           <img class="popup__close-popup-image" src="./images/popup/close-icon.svg"
             alt="Кнопка 'Закрыть всплывающее окно'">
         </button>
-
         <h2 class="popup__header">Новое место</h2>
-        <input type="text" class="popup__form-field popup__form-field_scope_place-name" autocomplete="off"
-          name="place-name" maxlength="50" placeholder="Название" required>
-        <input type="text" class="popup__form-field popup__form-field_scope_place-url" autocomplete="off"
-          name="place-url" placeholder="Ссылка на картинку" required>
-        <input name="add-submit-button" type="submit" value="Создать" class="popup__save-button">
+
+        <label class="popup__form-label">
+          <input type="text" id="picture-input" class="popup__field popup__field_scope_pic-name" autocomplete="off" name="place-name"
+            maxlength="50" placeholder="Название" minlength="2" maxlength="30" required>
+          <span id="picture-input-error" class="popup__input-error"></span>
+        </label>
+
+        <label class="popup__form-label">
+          <input type="url" id="url-input" class="popup__field popup__field_scope_url" autocomplete="off" name="place-url"
+            placeholder="Ссылка на картинку" required>
+          <span id="url-input-error" class="popup__input-error"></span>
+        </label>
+
+        <button type="submit" class="popup__save-button popup__save-button_scope_add">Создать</button>
 
       </form>
     </div>

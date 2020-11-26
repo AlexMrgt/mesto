@@ -1,27 +1,20 @@
-.popup__form-field{
+.popup__field{
 
   border: 0;
-  height: 24px;
+  height: 30px;
   box-sizing: border-box;
   border-bottom: 1px solid #bcbcc4;
   background-color: transparent;
 
-  margin-bottom: 30px;
-
   width: 358px;
 
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-
-
+  padding: 10px 0 10px 3px;
 
   outline-color: royalblue;
 }
 
 @media screen and (max-width: 600px){
-  .popup__form-field{
+  .popup__field{
 
     width: 238px;
   }

@@ -1,25 +1,24 @@
 
-/*
-  В ревью было требование вынести содержимое дефолтных
-  карточек в отдельный файл, этот способ, наверное, неплох,
-  но поддерживается только с Safari 10.1/Chrome 61/Firefox 60/Edge 16, а в IE вообще не реализован.
-  Видимо, это не универсальный способ.
-*/
+import {Validation} from "./modules/__validation/modules__validation.js";
 import {defaultCardsPropertiesSet as defaults} from "./modules/__defaultCardProps/modules__defaultCardProps.js";
 
 const defaultCardsProperties = defaults;
 
 const editModal = document.querySelector(".popup_scope_edit");
 const editForm = editModal.querySelector(".popup__form_scope_edit");
-const editName = editForm.querySelector(".popup__form-field_scope_name");
-const editDescription = editForm.querySelector(".popup__form-field_scope_description");
+const editInputList = Array.from(editForm.querySelectorAll("popup__field"));
+const editName = editForm.querySelector(".popup__field_scope_name");
+const editDescription = editForm.querySelector(".popup__field_scope_description");
 const editCloseButton = editForm.querySelector(".popup__close-popup");
+const editSubmitButton = editForm.querySelector(".popup__save-button_scope_edit");
 
 const addModal =  document.querySelector(".popup_scope_add");
 const addForm = addModal.querySelector(".popup__form_scope_add");
-const addPlaceName = addForm.querySelector(".popup__form-field_scope_place-name");
-const addPlaceUrl = addForm.querySelector(".popup__form-field_scope_place-url");
+const addInputList = Array.from(addForm.querySelectorAll("popup__field"));
+const addPlaceName = addForm.querySelector(".popup__field_scope_pic-name");
+const addPlaceUrl = addForm.querySelector(".popup__field_scope_url");
 const addCloseButton = addForm.querySelector(".popup__close-popup");
+const addSubmitButton = addForm.querySelector(".popup__save-button_scope_add");
 
 const cardModal = document.querySelector(".popup_scope_picture");
 const cardModalPicture = cardModal.querySelector(".card-popup__image");
@@ -36,20 +35,45 @@ const gallery = document.querySelector(".gallery");
 
 const cardTemplate =  document.querySelector('#card-template').content;
 
-/*С именованием ф-ий/переменных не очень понятно: слово add обычно используется
-  именно как описание фунционала, т.е. ф-я что-то добавляет,
-  а тут add/edit - это просто идентификатор попапа,
-  мне кажется, это неправильно, но не знаю как иначе.
-*/
 
 function openModal(modal) {
 
   modal.classList.add("popup_active");
+
+  modal.addEventListener('mousedown', mouseHandler);
+  // вешать listener на document наверняка плохая практика, но не знаю, как иначе
+  document.addEventListener('keydown', keyHandler);
 }
 
 function closeModal(modal) {
 
   modal.classList.remove("popup_active");
+
+  modal.removeEventListener('click', mouseHandler);
+  document.removeEventListener('keydown', keyHandler);
+}
+
+function keyHandler(evt){
+
+  const currentModal = document.querySelector(".popup_active");
+
+  if(evt.key === "Escape"){
+
+    Validation.clearErrorsOnClose(currentModal, Validation.config);
+    closeModal(currentModal);
+  }
+
+};
+
+function mouseHandler(evt){
+
+  const currentModal = document.querySelector(".popup_active");
+
+  if (evt.target.classList.contains("popup")){
+
+    Validation.clearErrorsOnClose(currentModal, Validation.config);
+    closeModal(currentModal);
+  }
 }
 
 function setFormDefaultValues() {
@@ -64,7 +88,6 @@ function editFormSubmitHandler(evt) {
 
   profileName.textContent = editName.value;
   profileDescription.textContent = editDescription.value;
-
   closeModal(editModal);
 }
 
@@ -74,6 +97,8 @@ function addFormSubmitHandler(evt){
 
   renderCard(createCard(addPlaceUrl.value, addPlaceName.value));
 
+  addForm.reset();
+  Validation.setButtonState(addSubmitButton, addInputList, Validation.config);
   closeModal(addModal);
 }
 
@@ -92,10 +117,6 @@ function createCard(sourse, title, alternative = title){
     evt.target.classList.toggle('card__like_active');
   });
 
-  /* Не уверен, что удаление карточки должно осуществляться таким образом,
-    то выглядит не универсально, что если родителем кнопки
-    будет не сама карточка, а какой-то div на ней
-  */
   card.querySelector(".card__delete-card").addEventListener('click', evt => {
 
     evt.target.closest(".card").remove();
@@ -138,35 +159,34 @@ function renderHasCards(){
   gallery.querySelector('.no-cards').classList.add("no-cards_hidden");
 }
 
-function setCardPopupContent(src, caption){
+function setCardPopupContent(src, caption, alt = caption){
 
   cardModalPicture.src = src;
-  cardModalPicture.alt = caption;
+  cardModalPicture.alt = alt;
   cardModalCaption.textContent = caption;
 }
 
-renderDefaultCards(defaultCardsProperties);
-
 profileEditButton.addEventListener("click", () => {
 
-  openModal(editModal);
   setFormDefaultValues();
+  openModal(editModal);
+  Validation.setButtonState(editSubmitButton, editInputList, Validation.config);
 })
 editCloseButton.addEventListener("click", () => {
 
+  Validation.clearErrorsOnClose(editModal, Validation.config);
   closeModal(editModal);
 })
 editForm.addEventListener("submit", editFormSubmitHandler);
 
 profileAddButton.addEventListener("click", () => {
 
+  addForm.reset();
   openModal(addModal);
-  addPlaceName.value = '';
-  addPlaceUrl.value = '';
-
 })
 addCloseButton.addEventListener("click", () => {
 
+  Validation.clearErrorsOnClose(addModal, Validation.config);
   closeModal(addModal);
 })
 addForm.addEventListener("submit", addFormSubmitHandler);
@@ -175,3 +195,8 @@ cardModalClose.addEventListener("click", () => {
 
   closeModal(cardModal);
 })
+
+
+renderDefaultCards(defaultCardsProperties);
+
+Validation.enableValidation(Validation.config);
