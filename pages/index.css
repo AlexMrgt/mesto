@@ -48,6 +48,9 @@
 /* popup */
 
 @import url("../blocks/popup/popup.css");
+@import url("../blocks/popup/_scope/popup_scope_edit.css");
+@import url("../blocks/popup/_scope/popup_scope_add.css");
+@import url("../blocks/popup/_scope/popup_scope_picture.css");
 
 @import url("../blocks/popup/__wrapper/popup__wrapper.css");
 @import url("../blocks/popup/__form/popup__form.css");
@@ -63,8 +66,16 @@
 @import url("../blocks/popup/__close-popup-image/popup__close-popup-image.css");
 @import url("../blocks/popup/_active/popup_active.css");
 
+@import url("../blocks/popup/__form/_scope/popup__form_scope_add.css");
+@import url("../blocks/popup/__form/_scope/popup__form_scope_edit.css");
+
+@import url("../blocks/popup/__field/_scope/popup__field_scope_description.css");
+@import url("../blocks/popup/__field/_scope/popup__field_scope_name.css");
+@import url("../blocks/popup/__field/_scope/popup__field_scope_pic-name.css");
+@import url("../blocks/popup/__field/_scope/popup__field_scope_url.css");
 
 /* card-popup */
+
 
 @import url("../blocks/card-popup/card-popup.css");
 @import url("../blocks/card-popup/__image/card-popup__image.css");
