@@ -6,7 +6,7 @@ const defaultCardsProperties = defaults;
 
 const editModal = document.querySelector(".popup_scope_edit");
 const editForm = editModal.querySelector(".popup__form_scope_edit");
-const editInputList = Array.from(editForm.querySelectorAll("popup__field"));
+const editInputList = Array.from(editForm.querySelectorAll(".popup__field"));
 const editName = editForm.querySelector(".popup__field_scope_name");
 const editDescription = editForm.querySelector(".popup__field_scope_description");
 const editCloseButton = editForm.querySelector(".popup__close-popup");
@@ -14,7 +14,7 @@ const editSubmitButton = editForm.querySelector(".popup__save-button_scope_edit"
 
 const addModal =  document.querySelector(".popup_scope_add");
 const addForm = addModal.querySelector(".popup__form_scope_add");
-const addInputList = Array.from(addForm.querySelectorAll("popup__field"));
+const addInputList = Array.from(addForm.querySelectorAll(".popup__field"));
 const addPlaceName = addForm.querySelector(".popup__field_scope_pic-name");
 const addPlaceUrl = addForm.querySelector(".popup__field_scope_url");
 const addCloseButton = addForm.querySelector(".popup__close-popup");
@@ -98,6 +98,7 @@ function addFormSubmitHandler(evt){
   renderCard(createCard(addPlaceUrl.value, addPlaceName.value));
 
   addForm.reset();
+  console.log(addInputList);
   Validation.setButtonState(addSubmitButton, addInputList, Validation.config);
   closeModal(addModal);
 }
