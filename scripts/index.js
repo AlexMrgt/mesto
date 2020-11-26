@@ -57,9 +57,12 @@ function keyHandler(evt){
 
   const currentModal = document.querySelector(".popup_active");
 
-  if(evt.key === "Escape"){
+  if(evt.key === "Escape" && !currentModal.classList.contains("popup_scope_picture")){
 
     Validation.clearErrorsOnClose(currentModal, Validation.config);
+    closeModal(currentModal);
+  }
+  else if (evt.key === "Escape"){
     closeModal(currentModal);
   }
 
@@ -69,9 +72,12 @@ function mouseHandler(evt){
 
   const currentModal = document.querySelector(".popup_active");
 
-  if (evt.target.classList.contains("popup")){
+  if ( evt.target.classList.contains("popup") && !currentModal.classList.contains("popup_scope_picture")){
 
     Validation.clearErrorsOnClose(currentModal, Validation.config);
+    closeModal(currentModal);
+  }
+  else if(evt.target.classList.contains("popup")){
     closeModal(currentModal);
   }
 }
@@ -97,9 +103,6 @@ function addFormSubmitHandler(evt){
 
   renderCard(createCard(addPlaceUrl.value, addPlaceName.value));
 
-  addForm.reset();
-  console.log(addInputList);
-  Validation.setButtonState(addSubmitButton, addInputList, Validation.config);
   closeModal(addModal);
 }
 
@@ -183,6 +186,7 @@ editForm.addEventListener("submit", editFormSubmitHandler);
 profileAddButton.addEventListener("click", () => {
 
   addForm.reset();
+  Validation.setButtonState(addSubmitButton, addInputList, Validation.config);
   openModal(addModal);
 })
 addCloseButton.addEventListener("click", () => {
@@ -196,7 +200,6 @@ cardModalClose.addEventListener("click", () => {
 
   closeModal(cardModal);
 })
-
 
 renderDefaultCards(defaultCardsProperties);
 
