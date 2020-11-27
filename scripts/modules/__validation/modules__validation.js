@@ -1,99 +1,79 @@
-export class Validation{
 
-  static config = {
+export function setSubmitButtonState(submitElement, formElement, config){
 
-    formSelector: '.popup__form',
-    inputSelector: '.popup__field',
-    submitButtonSelector: '.popup__save-button',
-
-    inputInvalidClass: 'popup__field_invalid',
-    inputErrorVisibleClass: 'popup__input-error_active',
-    buttonInvalidClass: 'popup__save-button_disabled'
-  };
-
-  static setButtonState(submitElement, inputList, config){
-
-    if(this.isGenerallyInvalide(inputList)){
-      submitElement.classList.add(config.buttonInvalidClass);
-      submitElement.setAttribute('disabled', true);
-    }
-    else{
-      submitElement.classList.remove(config.buttonInvalidClass);
-      submitElement.removeAttribute('disabled', true);
-    }
+  if (formElement.checkValidity()){
+    submitElement.classList.remove(config.buttonInvalidClass);
+    submitElement.removeAttribute('disabled', true);
   }
-
-  static isGenerallyInvalide(inputList){
-
-    return inputList.some( inputElement => {
-      return !inputElement.validity.valid;
-    } )
+  else{
+    submitElement.classList.add(config.buttonInvalidClass);
+    submitElement.setAttribute('disabled', true);
   }
+}
 
-  static clearErrorsOnClose(modal, config){
+export function showErrorMessage(formElement, inputElement, errorMessage, config) {
 
-    const formElement = modal.querySelector(config.formSelector);
-    const inputList = formElement.querySelectorAll(config.inputSelector);
+  inputElement.classList.add(config.inputInvalidClass);
 
-    inputList.forEach( inputElement => {
-      this.hideErrorMessage(formElement, inputElement, config)
+  const errorEllement = formElement.querySelector(`#${inputElement.id}-error`);
+  errorEllement.textContent = errorMessage;
+  errorEllement.classList.add(config.inputErrorVisibleClass);
+}
+
+export function hideErrorMessage(formElement, inputElement, config){
+
+  inputElement.classList.remove(config.inputInvalidClass);
+
+  const errorEllement = formElement.querySelector(`#${inputElement.id}-error`);
+  errorEllement.textContent = '';
+  errorEllement.classList.remove(config.inputErrorVisibleClass);
+}
+
+export function checkIsValid(formElement, inputElement, config){
+
+  (!inputElement.validity.valid)? showErrorMessage(formElement, inputElement, inputElement.validationMessage, config) : hideErrorMessage(formElement, inputElement, config);
+}
+
+export function setInputEventListemers(formElement, config){
+
+  const sumbitElement = formElement.querySelector(config.submitButtonSelector);
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+
+  setSubmitButtonState(sumbitElement, formElement, config);
+
+  inputList.forEach( inputElement => {
+
+    inputElement.addEventListener('input', () => {
+
+      checkIsValid(formElement, inputElement, config);
+      setSubmitButtonState(sumbitElement, formElement, config);
     })
-  }
+  });
+}
 
-  static showErrorMessage(formElement, inputElement, errorMessage, config) {
+export function enableValidation(config){
 
-    inputElement.classList.add(config.inputInvalidClass);
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
 
-    const errorEllement = formElement.querySelector(`#${inputElement.id}-error`);
+  formList.forEach(formElement =>{
 
-    errorEllement.textContent = errorMessage;
-    errorEllement.classList.add(config.inputErrorVisibleClass);
-  }
+    formElement.addEventListener('submit', evt => {
 
-  static hideErrorMessage(formElement, inputElement, config){
-
-    inputElement.classList.remove(config.inputInvalidClass);
-
-    const errorEllement = formElement.querySelector(`#${inputElement.id}-error`);
-
-    errorEllement.textContent = '';
-    errorEllement.classList.remove(config.inputErrorVisibleClass);
-  }
-
-  static checkValidity(formElement, inputElement, config){
-
-    (!inputElement.validity.valid)? this.showErrorMessage(formElement, inputElement, inputElement.validationMessage, config) : this.hideErrorMessage(formElement, inputElement, config);
-  }
-
-  static setInputEventListemers(formElement, config){
-
-    const sumbitElement = formElement.querySelector(config.submitButtonSelector);
-
-    const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
-    this.setButtonState(sumbitElement, inputList, config);
-
-    inputList.forEach( inputElement => {
-
-      inputElement.addEventListener('input', () => {
-
-        this.checkValidity(formElement, inputElement, config);
-        this.setButtonState(sumbitElement, inputList, config);
-      })
+      evt.preventDefault();
     });
-  }
 
-  static enableValidation(config){
+    setInputEventListemers(formElement, config);
+  })
+}
 
-    const formElements = Array.from(document.querySelectorAll(config.formSelector));
+export function resetValidation(formElement, config){
 
-    formElements.forEach(formElement =>{
+  const submitElement = formElement.querySelector(config.submitButtonSelector);
+  setSubmitButtonState(submitElement, formElement, config);
 
-      formElement.addEventListener('submit', evt => {
-        evt.preventDefault();
-      });
-
-      this.setInputEventListemers(formElement, config);
-    })
-  }
+  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  inputList.forEach( inputElement =>{
+    hideErrorMessage(formElement, inputElement, config);
+  })
 
 }

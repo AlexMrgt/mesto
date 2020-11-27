@@ -63,6 +63,7 @@
 @import url("../blocks/popup/__save-button/popup__save-button.css");
 @import url("../blocks/popup/__save-button/_disabled/popup__save-button_disabled.css");
 @import url("../blocks/popup/__close-popup/popup__close-popup.css");
+@import url("../blocks/popup/__close-popup/_scope/popup__close-popup_scope_picture.css");
 @import url("../blocks/popup/__close-popup-image/popup__close-popup-image.css");
 @import url("../blocks/popup/_active/popup_active.css");
 
@@ -74,15 +75,16 @@
 @import url("../blocks/popup/__field/_scope/popup__field_scope_pic-name.css");
 @import url("../blocks/popup/__field/_scope/popup__field_scope_url.css");
 
-/* card-popup */
 
+/* card-popup */
 
 @import url("../blocks/card-popup/card-popup.css");
 @import url("../blocks/card-popup/__image/card-popup__image.css");
 @import url("../blocks/card-popup/__caption/card-popup__caption.css");
+/*
 @import url("../blocks/card-popup/__close-popup/card-popup__close-popup.css");
 @import url("../blocks/card-popup/__close-popup-image/card-popup__close-popup-image.css");
-
+*/
 
 /* no-cards */
 

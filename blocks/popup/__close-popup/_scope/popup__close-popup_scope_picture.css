@@ -1,4 +1,4 @@
-.card-popup__close-popup{
+.popup__close-popup_scope_picture{
   border: none;
   outline: none;
   background: none;
@@ -12,7 +12,7 @@
   cursor: pointer;
 }
 
-.card-popup__close-popup:hover{
+.popup__close-popup_scope_picture:hover{
 
   opacity: 0.6;
 }

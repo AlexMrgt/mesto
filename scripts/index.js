@@ -1,29 +1,28 @@
 
-import {Validation} from "./modules/__validation/modules__validation.js";
+import * as validation from "./modules/__validation/modules__validation.js";
 import {defaultCardsPropertiesSet as defaults} from "./modules/__defaultCardProps/modules__defaultCardProps.js";
 
 const defaultCardsProperties = defaults;
 
+/* все эти переменные для удобства, наверное, тоже можно
+упаковать в соотвествующие объекты и доставать уже оттуда */
+
 const editModal = document.querySelector(".popup_scope_edit");
 const editForm = editModal.querySelector(".popup__form_scope_edit");
-const editInputList = Array.from(editForm.querySelectorAll(".popup__field"));
 const editName = editForm.querySelector(".popup__field_scope_name");
 const editDescription = editForm.querySelector(".popup__field_scope_description");
 const editCloseButton = editForm.querySelector(".popup__close-popup");
-const editSubmitButton = editForm.querySelector(".popup__save-button_scope_edit");
 
 const addModal =  document.querySelector(".popup_scope_add");
 const addForm = addModal.querySelector(".popup__form_scope_add");
-const addInputList = Array.from(addForm.querySelectorAll(".popup__field"));
 const addPlaceName = addForm.querySelector(".popup__field_scope_pic-name");
 const addPlaceUrl = addForm.querySelector(".popup__field_scope_url");
 const addCloseButton = addForm.querySelector(".popup__close-popup");
-const addSubmitButton = addForm.querySelector(".popup__save-button_scope_add");
 
 const cardModal = document.querySelector(".popup_scope_picture");
 const cardModalPicture = cardModal.querySelector(".card-popup__image");
 const cardModalCaption = cardModal.querySelector(".card-popup__caption");
-const cardModalClose = cardModal.querySelector(".card-popup__close-popup");
+const cardCloseButton = cardModal.querySelector(".popup__close-popup_scope_picture");
 
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile__name");
@@ -35,49 +34,45 @@ const gallery = document.querySelector(".gallery");
 
 const cardTemplate =  document.querySelector('#card-template').content;
 
+const validationConfig = {
+
+  formSelector: '.popup__form',
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__save-button',
+
+  inputInvalidClass: 'popup__field_invalid',
+  inputErrorVisibleClass: 'popup__input-error_active',
+  buttonInvalidClass: 'popup__save-button_disabled'
+}
 
 function openModal(modal) {
 
   modal.classList.add("popup_active");
 
-  modal.addEventListener('mousedown', mouseHandler);
-  // вешать listener на document наверняка плохая практика, но не знаю, как иначе
-  document.addEventListener('keydown', keyHandler);
+  modal.addEventListener('mousedown', closeByOverlay);
+  document.addEventListener('keydown', closeByEsc);
 }
 
 function closeModal(modal) {
 
   modal.classList.remove("popup_active");
 
-  modal.removeEventListener('click', mouseHandler);
-  document.removeEventListener('keydown', keyHandler);
+  modal.removeEventListener('click', closeByOverlay);
+  document.removeEventListener('keydown', closeByEsc);
 }
 
-function keyHandler(evt){
+function closeByEsc(evt){
 
-  const currentModal = document.querySelector(".popup_active");
-
-  if(evt.key === "Escape" && !currentModal.classList.contains("popup_scope_picture")){
-
-    Validation.clearErrorsOnClose(currentModal, Validation.config);
+  if(evt.key === "Escape") {
+    const currentModal = document.querySelector(".popup_active");
     closeModal(currentModal);
   }
-  else if (evt.key === "Escape"){
-    closeModal(currentModal);
-  }
-
 };
 
-function mouseHandler(evt){
+function closeByOverlay(evt){
 
-  const currentModal = document.querySelector(".popup_active");
-
-  if ( evt.target.classList.contains("popup") && !currentModal.classList.contains("popup_scope_picture")){
-
-    Validation.clearErrorsOnClose(currentModal, Validation.config);
-    closeModal(currentModal);
-  }
-  else if(evt.target.classList.contains("popup")){
+  if ( evt.target.classList.contains("popup")){
+    const currentModal = document.querySelector(".popup_active");
     closeModal(currentModal);
   }
 }
@@ -102,7 +97,6 @@ function addFormSubmitHandler(evt){
   evt.preventDefault();
 
   renderCard(createCard(addPlaceUrl.value, addPlaceName.value));
-
   closeModal(addModal);
 }
 
@@ -131,7 +125,7 @@ function createCard(sourse, title, alternative = title){
 
   });
 
-  card.querySelector(".card__picture").addEventListener("click", () => {
+  cardPicture.addEventListener("click", () => {
 
     openModal(cardModal);
     setCardPopupContent(sourse, title);
@@ -173,12 +167,11 @@ function setCardPopupContent(src, caption, alt = caption){
 profileEditButton.addEventListener("click", () => {
 
   setFormDefaultValues();
+  validation.resetValidation(editForm, validationConfig);
   openModal(editModal);
-  Validation.setButtonState(editSubmitButton, editInputList, Validation.config);
 })
 editCloseButton.addEventListener("click", () => {
 
-  Validation.clearErrorsOnClose(editModal, Validation.config);
   closeModal(editModal);
 })
 editForm.addEventListener("submit", editFormSubmitHandler);
@@ -186,21 +179,20 @@ editForm.addEventListener("submit", editFormSubmitHandler);
 profileAddButton.addEventListener("click", () => {
 
   addForm.reset();
-  Validation.setButtonState(addSubmitButton, addInputList, Validation.config);
+  validation.resetValidation(addForm, validationConfig);
   openModal(addModal);
 })
 addCloseButton.addEventListener("click", () => {
 
-  Validation.clearErrorsOnClose(addModal, Validation.config);
   closeModal(addModal);
 })
 addForm.addEventListener("submit", addFormSubmitHandler);
 
-cardModalClose.addEventListener("click", () => {
+cardCloseButton.addEventListener("click", () => {
 
   closeModal(cardModal);
 })
 
 renderDefaultCards(defaultCardsProperties);
 
-Validation.enableValidation(Validation.config);
+validation.enableValidation(validationConfig);
