@@ -1,47 +1,48 @@
 .profile{
 
   display: grid;
-  grid-template-columns: repeat(3, max-content) 1fr;
+
+  grid-template-columns: max-content 540px 1fr;
   grid-template-rows: repeat(2,auto);
 
   grid-template-areas:
-    "photo name edit-button add-button"
-    "photo description . add-button";
+    "photo name-and-edit-button add-button"
+    "photo description add-button";
 
-  gap: 0 3px;
+  gap: 0 30px;
 
+  margin-top: 50px;
   margin-bottom: 50px;
 
   width: 100%;
+
+  background-color: black;
 }
+
 
 
 @media screen and (max-width: 898px){
   .profile{
 
-    grid-template-columns: repeat(2, auto);
-    grid-template-rows: repeat(4, auto);
-
-    grid-template-areas:
-    "photo photo"
-    "name edit-button "
-    "description description"
-    "add-button add-button";
-
-    justify-content: center;
-    align-items: center;
-  }
-
-
-
-}
-
-
-@media screen and (max-width: 898px){
-  .profile{
-    width: 320px;
+    width: 450px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 36px;
+
+    grid-template-columns: 450px;
+    grid-template-rows: repeat(5, auto);
+
+    grid-template-areas:
+      "photo"
+      "name-and-edit-button"
+      "description"
+      "add-button";
+  }
+}
+
+@media screen and (max-width: 600px){
+  .profile{
+
+    width: 290px;
+    grid-template-columns: 282px;
   }
 }

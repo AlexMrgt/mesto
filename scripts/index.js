@@ -1,11 +1,12 @@
 
-import * as validation from "./modules/__validation/modules__validation.js";
-import {defaultCardsPropertiesSet as defaults} from "./modules/__defaultCardProps/modules__defaultCardProps.js";
+import { Card } from "./card/card.js";
+import { openModal, closeModal } from "./utils/popup-utils.js";
+import { renderCard, renderDefaultCards } from './utils/render-utils.js';
+import { defaultCardsPropertiesSet as defaults } from "./defaultCardProps.js";
+
+import { FormValidator } from "./validation/validation.js";
 
 const defaultCardsProperties = defaults;
-
-/* все эти переменные для удобства, наверное, тоже можно
-упаковать в соотвествующие объекты и доставать уже оттуда */
 
 const editModal = document.querySelector(".popup_scope_edit");
 const editForm = editModal.querySelector(".popup__form_scope_edit");
@@ -13,15 +14,13 @@ const editName = editForm.querySelector(".popup__field_scope_name");
 const editDescription = editForm.querySelector(".popup__field_scope_description");
 const editCloseButton = editForm.querySelector(".popup__close-popup");
 
-const addModal =  document.querySelector(".popup_scope_add");
+const addModal = document.querySelector(".popup_scope_add");
 const addForm = addModal.querySelector(".popup__form_scope_add");
 const addPlaceName = addForm.querySelector(".popup__field_scope_pic-name");
 const addPlaceUrl = addForm.querySelector(".popup__field_scope_url");
 const addCloseButton = addForm.querySelector(".popup__close-popup");
 
 const cardModal = document.querySelector(".popup_scope_picture");
-const cardModalPicture = cardModal.querySelector(".card-popup__image");
-const cardModalCaption = cardModal.querySelector(".card-popup__caption");
 const cardCloseButton = cardModal.querySelector(".popup__close-popup_scope_picture");
 
 const profile = document.querySelector(".profile");
@@ -30,52 +29,29 @@ const profileDescription = profile.querySelector(".profile__description");
 const profileEditButton = profile.querySelector(".profile__edit-profile");
 const profileAddButton = profile.querySelector(".profile__add-card");
 
-const gallery = document.querySelector(".gallery");
+const editFormConfig = {
 
-const cardTemplate =  document.querySelector('#card-template').content;
-
-const validationConfig = {
-
-  formSelector: '.popup__form',
-  inputSelector: '.popup__field',
-  submitButtonSelector: '.popup__save-button',
+  inputSelector: ".popup__field",
+  submitButtonSelector: ".popup__save-button",
 
   inputInvalidClass: 'popup__field_invalid',
   inputErrorVisibleClass: 'popup__input-error_active',
   buttonInvalidClass: 'popup__save-button_disabled'
 }
 
-function openModal(modal) {
+const addFormConfig = {
 
-  modal.classList.add("popup_active");
+  inputSelector: ".popup__field",
+  submitButtonSelector: ".popup__save-button",
 
-  modal.addEventListener('mousedown', closeByOverlay);
-  document.addEventListener('keydown', closeByEsc);
+  inputInvalidClass: 'popup__field_invalid',
+  inputErrorVisibleClass: 'popup__input-error_active',
+  buttonInvalidClass: 'popup__save-button_disabled'
 }
 
-function closeModal(modal) {
+const editFormValidation = new FormValidator(editFormConfig, editForm);
+const addFormValidation = new FormValidator(addFormConfig, addForm);
 
-  modal.classList.remove("popup_active");
-
-  modal.removeEventListener('click', closeByOverlay);
-  document.removeEventListener('keydown', closeByEsc);
-}
-
-function closeByEsc(evt){
-
-  if(evt.key === "Escape") {
-    const currentModal = document.querySelector(".popup_active");
-    closeModal(currentModal);
-  }
-};
-
-function closeByOverlay(evt){
-
-  if ( evt.target.classList.contains("popup")){
-    const currentModal = document.querySelector(".popup_active");
-    closeModal(currentModal);
-  }
-}
 
 function setFormDefaultValues() {
 
@@ -92,82 +68,33 @@ function editFormSubmitHandler(evt) {
   closeModal(editModal);
 }
 
-function addFormSubmitHandler(evt){
+function addFormSubmitHandler(evt) {
 
   evt.preventDefault();
 
-  renderCard(createCard(addPlaceUrl.value, addPlaceName.value));
+  const newCardValues = {
+    url: addPlaceUrl.value,
+    caption: addPlaceName.value
+  }
+
+  /* Имеет ли смысл создавать переменную, или лучше сразу внутри renderCard создать экземпляр*/
+  const card = new Card(
+    {
+      cardContent: newCardValues,
+      templateSelector: '#card-template',
+      modalSelector: ".popup_scope_picture"
+    });
+
+  renderCard(card.generateCard());
+
   closeModal(addModal);
 }
 
-function createCard(sourse, title, alternative = title){
-
-  const card = cardTemplate.cloneNode(true);
-  const cardPicture = card.querySelector(".card__picture");
-  const cardTitle = card.querySelector(".card__title");
-
-  cardPicture.src = sourse;
-  cardPicture.alt = alternative;
-  cardTitle.textContent = title;
-
-  card.querySelector(".card__like").addEventListener('click', evt => {
-
-    evt.target.classList.toggle('card__like_active');
-  });
-
-  card.querySelector(".card__delete-card").addEventListener('click', evt => {
-
-    evt.target.closest(".card").remove();
-
-    if (!gallery.querySelector(".card")) {
-      renderNoCards();
-    }
-
-  });
-
-  cardPicture.addEventListener("click", () => {
-
-    openModal(cardModal);
-    setCardPopupContent(sourse, title);
-  })
-
-  return card;
-}
-
-function renderCard(card){
-
-  gallery.prepend(card);
-  renderHasCards();
-}
-
-function renderDefaultCards(defaultSourses){
-
-  defaultSourses.forEach( sourse => {
-    renderCard(createCard(sourse.url, sourse.caption, sourse.alt));
-  })
-}
-
-function renderNoCards(){
-
-  gallery.querySelector('.no-cards').classList.remove("no-cards_hidden");
-}
-
-function renderHasCards(){
-
-  gallery.querySelector('.no-cards').classList.add("no-cards_hidden");
-}
-
-function setCardPopupContent(src, caption, alt = caption){
-
-  cardModalPicture.src = src;
-  cardModalPicture.alt = alt;
-  cardModalCaption.textContent = caption;
-}
 
 profileEditButton.addEventListener("click", () => {
 
   setFormDefaultValues();
-  validation.resetValidation(editForm, validationConfig);
+  editFormValidation.resetValidation();
   openModal(editModal);
 })
 editCloseButton.addEventListener("click", () => {
@@ -179,7 +106,7 @@ editForm.addEventListener("submit", editFormSubmitHandler);
 profileAddButton.addEventListener("click", () => {
 
   addForm.reset();
-  validation.resetValidation(addForm, validationConfig);
+  addFormValidation.resetValidation();
   openModal(addModal);
 })
 addCloseButton.addEventListener("click", () => {
@@ -195,4 +122,5 @@ cardCloseButton.addEventListener("click", () => {
 
 renderDefaultCards(defaultCardsProperties);
 
-validation.enableValidation(validationConfig);
+editFormValidation.enableValidation();
+addFormValidation.enableValidation();

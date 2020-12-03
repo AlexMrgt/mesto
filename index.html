@@ -24,13 +24,15 @@
       <section class="profile" aria-label="Профиль">
 
         <img src="./images/profile/profile.jpg" alt="Фото профиля" class="profile__photo">
+        <div class="profile__name-and-edit-button-container">
+          <h1 class="profile__name">Мария Крацких</h1>
 
-        <h1 class="profile__name">Мария Крацких</h1>
+          <button type="button" class="profile__edit-profile">
+            <img class="profile__edit-profile-image" src="./images/profile/edit-button.svg"
+              alt="Кнопка 'Редактировать профиль'">
+          </button>
+        </div>
 
-        <button type="button" class="profile__edit-profile">
-          <img class="profile__edit-profile-image" src="./images/profile/edit-button.svg"
-            alt="Кнопка 'Редактировать профиль'">
-        </button>
 
         <p class="profile__description">Фотограф-любитель</p>
 
@@ -69,16 +71,16 @@
 
         <label class="popup__form-label">
 
-          <input type="text" id="name-input" class="popup__field popup__field_scope_name" name="name" minlength="2" maxlength="40"
-            autocomplete="off" required>
+          <input type="text" id="name-input" class="popup__field popup__field_scope_name" name="name" minlength="2"
+            maxlength="40" autocomplete="off" required>
           <span id="name-input-error" class="popup__input-error"></span>
 
         </label>
 
         <label class="popup__form-label">
 
-          <input type="text" id="description-input"  class="popup__field popup__field_scope_description" name="description" minlength="2"
-            maxlength="200" autocomplete="off" required>
+          <input type="text" id="description-input" class="popup__field popup__field_scope_description"
+            name="description" minlength="2" maxlength="200" autocomplete="off" required>
 
           <span id="description-input-error" class="popup__input-error"></span>
 
@@ -104,14 +106,14 @@
         <h2 class="popup__header">Новое место</h2>
 
         <label class="popup__form-label">
-          <input type="text" id="picture-input" class="popup__field popup__field_scope_pic-name" autocomplete="off" name="place-name"
-            maxlength="50" placeholder="Название" minlength="2" maxlength="30" required>
+          <input type="text" id="picture-input" class="popup__field popup__field_scope_pic-name" autocomplete="off"
+            name="place-name" maxlength="50" placeholder="Название" minlength="2" maxlength="30" required>
           <span id="picture-input-error" class="popup__input-error"></span>
         </label>
 
         <label class="popup__form-label">
-          <input type="url" id="url-input" class="popup__field popup__field_scope_url" autocomplete="off" name="place-url"
-            placeholder="Ссылка на картинку" required>
+          <input type="url" id="url-input" class="popup__field popup__field_scope_url" autocomplete="off"
+            name="place-url" placeholder="Ссылка на картинку" required>
           <span id="url-input-error" class="popup__input-error"></span>
         </label>
 
@@ -131,12 +133,6 @@
           alt="Кнопка 'Закрыть всплывающее окно'">
       </button>
 
-<!--
-      <button type="button" class="card-popup__close-popup">
-        <img class="card-popup__close-popup-image" src="./images/popup/close-icon.svg"
-          alt="Кнопка 'Закрыть всплывающее окно'">
-      </button>
--->
       <img src="#" alt="#" class="card-popup__image">
       <p class="card-popup__caption"></p>
 

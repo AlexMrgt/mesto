@@ -5,8 +5,13 @@
   font-size: 18px;
   line-height: 22px;
 
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  width: 90%;
   margin: 0;
-  padding: 0;
+  padding:0;
 
   cursor: default;
 
@@ -15,17 +20,12 @@
 
 @media screen and (max-width: 898px){
   .profile__description{
-    align-self: center;
-    justify-self: center;
 
-    font-size: 14px;
-    line-height: 17px;
+    margin: 0 auto 35px auto;
 
     text-align: center;
 
-    margin-top: 0;
-    margin-bottom: 36px;
-
-    width: 250px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

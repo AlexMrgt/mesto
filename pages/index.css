@@ -19,6 +19,7 @@
 
 @import url("../blocks/profile/profile.css");
 @import url("../blocks/profile/__photo/profile__photo.css");
+@import url("../blocks/profile/__profile__name-and-edit-button-container/profile__profile__name-and-edit-button-container.css");
 @import url("../blocks/profile/__name/profile__name.css");
 @import url("../blocks/profile/__description/profile__description.css");
 @import url("../blocks/profile/__edit-profile/profile__edit-profile.css");
@@ -81,10 +82,7 @@
 @import url("../blocks/card-popup/card-popup.css");
 @import url("../blocks/card-popup/__image/card-popup__image.css");
 @import url("../blocks/card-popup/__caption/card-popup__caption.css");
-/*
-@import url("../blocks/card-popup/__close-popup/card-popup__close-popup.css");
-@import url("../blocks/card-popup/__close-popup-image/card-popup__close-popup-image.css");
-*/
+
 
 /* no-cards */
 
