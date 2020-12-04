@@ -1,6 +1,6 @@
 
 
-export class FormValidator {
+export default class FormValidator {
 
   constructor(config, form) {
 
@@ -48,7 +48,12 @@ export class FormValidator {
 
   _checkIsValid(inputElement) {
 
-    (!inputElement.validity.valid) ? this._showErrorMessage(inputElement, inputElement.validationMessage) : this._hideErrorMessage(inputElement);
+    if (!inputElement.validity.valid) {
+      this._showErrorMessage(inputElement, inputElement.validationMessage);
+    }
+    else {
+      this._hideErrorMessage(inputElement);
+    }
   }
 
   _setSubmitButtonState() {

@@ -1,12 +1,12 @@
 
-import { Card } from "./card/card.js";
+import  Card  from "./components/card.js";
+import  FormValidator  from "./components/validation.js";
+
+import  defaultCardsPropertiesSet from "./utils/defaultCardProps.js";
 import { openModal, closeModal } from "./utils/popup-utils.js";
 import { renderCard, renderDefaultCards } from './utils/render-utils.js';
-import { defaultCardsPropertiesSet as defaults } from "./defaultCardProps.js";
 
-import { FormValidator } from "./validation/validation.js";
-
-const defaultCardsProperties = defaults;
+const defaultCardsProperties = defaultCardsPropertiesSet;
 
 const editModal = document.querySelector(".popup_scope_edit");
 const editForm = editModal.querySelector(".popup__form_scope_edit");
@@ -52,7 +52,6 @@ const addFormConfig = {
 const editFormValidation = new FormValidator(editFormConfig, editForm);
 const addFormValidation = new FormValidator(addFormConfig, addForm);
 
-
 function setFormDefaultValues() {
 
   editName.value = profileName.textContent;
@@ -89,7 +88,6 @@ function addFormSubmitHandler(evt) {
 
   closeModal(addModal);
 }
-
 
 profileEditButton.addEventListener("click", () => {
 

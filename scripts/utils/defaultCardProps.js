@@ -1,4 +1,4 @@
-export const defaultCardsPropertiesSet = [
+  const defaultCardsPropertiesSet = [
   {
     caption:" Гора Эльбрус",
     url: "./images//gallery/Эльбрус.jpg",
@@ -35,3 +35,6 @@ export const defaultCardsPropertiesSet = [
     alt: "Фото Ленских столбов"
   },
 ]
+
+
+export default defaultCardsPropertiesSet;
