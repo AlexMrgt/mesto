@@ -1,7 +1,7 @@
   const defaultCardsPropertiesSet = [
   {
     caption:" Гора Эльбрус",
-    url: "./images//gallery/Эльбрус.jpg",
+    url: "./images/gallery/Эльбрус.jpg",
     alt:"Фото горы Эльбрус"
   },
 

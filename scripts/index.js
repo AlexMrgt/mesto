@@ -1,124 +1,147 @@
 
-import  Card  from "./components/card.js";
-import  FormValidator  from "./components/validation.js";
+import Card from "./components/Card.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import Section from "./components/Section.js";
+import UserInfo from "./components/UserUnfo.js";
+import FormValidator from "./components/Validation.js";
 
-import  defaultCardsPropertiesSet from "./utils/defaultCardProps.js";
-import { openModal, closeModal } from "./utils/popup-utils.js";
-import { renderCard, renderDefaultCards } from './utils/render-utils.js';
+import {
+  editForm, editName, editDescription,
+  addForm,
+  profileEditButton, profileAddButton,
+  gallerySelector,
+  editFormConfig, addFormConfig} from "./utils/variables.js";
 
-const defaultCardsProperties = defaultCardsPropertiesSet;
+import defaultCardsPropertiesSet from "./utils/defaultCardProps.js";
 
-const editModal = document.querySelector(".popup_scope_edit");
-const editForm = editModal.querySelector(".popup__form_scope_edit");
-const editName = editForm.querySelector(".popup__field_scope_name");
-const editDescription = editForm.querySelector(".popup__field_scope_description");
-const editCloseButton = editForm.querySelector(".popup__close-popup");
-
-const addModal = document.querySelector(".popup_scope_add");
-const addForm = addModal.querySelector(".popup__form_scope_add");
-const addPlaceName = addForm.querySelector(".popup__field_scope_pic-name");
-const addPlaceUrl = addForm.querySelector(".popup__field_scope_url");
-const addCloseButton = addForm.querySelector(".popup__close-popup");
-
-const cardModal = document.querySelector(".popup_scope_picture");
-const cardCloseButton = cardModal.querySelector(".popup__close-popup_scope_picture");
-
-const profile = document.querySelector(".profile");
-const profileName = profile.querySelector(".profile__name");
-const profileDescription = profile.querySelector(".profile__description");
-const profileEditButton = profile.querySelector(".profile__edit-profile");
-const profileAddButton = profile.querySelector(".profile__add-card");
-
-const editFormConfig = {
-
-  inputSelector: ".popup__field",
-  submitButtonSelector: ".popup__save-button",
-
-  inputInvalidClass: 'popup__field_invalid',
-  inputErrorVisibleClass: 'popup__input-error_active',
-  buttonInvalidClass: 'popup__save-button_disabled'
-}
-
-const addFormConfig = {
-
-  inputSelector: ".popup__field",
-  submitButtonSelector: ".popup__save-button",
-
-  inputInvalidClass: 'popup__field_invalid',
-  inputErrorVisibleClass: 'popup__input-error_active',
-  buttonInvalidClass: 'popup__save-button_disabled'
-}
-
-const editFormValidation = new FormValidator(editFormConfig, editForm);
-const addFormValidation = new FormValidator(addFormConfig, addForm);
-
-function setFormDefaultValues() {
-
-  editName.value = profileName.textContent;
-  editDescription.value = profileDescription.textContent;
-}
-
-function editFormSubmitHandler(evt) {
-
-  evt.preventDefault();
-
-  profileName.textContent = editName.value;
-  profileDescription.textContent = editDescription.value;
-  closeModal(editModal);
-}
-
-function addFormSubmitHandler(evt) {
-
-  evt.preventDefault();
-
-  const newCardValues = {
-    url: addPlaceUrl.value,
-    caption: addPlaceName.value
-  }
-
-  /* Имеет ли смысл создавать переменную, или лучше сразу внутри renderCard создать экземпляр*/
-  const card = new Card(
-    {
-      cardContent: newCardValues,
-      templateSelector: '#card-template',
-      modalSelector: ".popup_scope_picture"
-    });
-
-  renderCard(card.generateCard());
-
-  closeModal(addModal);
-}
+const cardsData = defaultCardsPropertiesSet;
 
 profileEditButton.addEventListener("click", () => {
 
-  setFormDefaultValues();
-  editFormValidation.resetValidation();
-  openModal(editModal);
-})
-editCloseButton.addEventListener("click", () => {
+  // эти 3 строчки выглядят как что-то неправильное, нааверное надо как-то поизящнее
+  const fieldsData = profileInfo.getUserInfo();
+  editName.value = fieldsData.name;
+  editDescription.value = fieldsData.description;
 
-  closeModal(editModal);
+  editFormValidation.resetValidation();
+
+  editPopup.open();
 })
-editForm.addEventListener("submit", editFormSubmitHandler);
 
 profileAddButton.addEventListener("click", () => {
 
-  addForm.reset();
   addFormValidation.resetValidation();
-  openModal(addModal);
-})
-addCloseButton.addEventListener("click", () => {
 
-  closeModal(addModal);
-})
-addForm.addEventListener("submit", addFormSubmitHandler);
-
-cardCloseButton.addEventListener("click", () => {
-
-  closeModal(cardModal);
+  addPopup.open();
 })
 
-renderDefaultCards(defaultCardsProperties);
 
+const profileInfo = new UserInfo({
+  nameSelector: '.profile__name',
+  descriptionSelector:'.profile__description'
+});
+
+
+const gallery = new Section({
+
+  contentList: cardsData,
+  renderer: (contentItem) => {
+
+    const card = new Card(
+      {
+        cardContent: contentItem,
+        templateSelector: '#card-template',
+        modalSelector: ".popup_scope_picture",
+        handleCardClick: ({ url, text }) => {
+
+          cardPopup.open({ url, text });
+        },
+        pushDeleteEvent: () => {
+
+          gallery.checkCardsAmount();
+        }
+      });
+
+    const cardElement = card.generateCard();
+
+    gallery.addItem(cardElement);
+  },
+
+}, gallerySelector
+);
+
+gallery.render();
+
+
+const editPopup = new PopupWithForm(
+  {
+    popupSelector: '.popup_scope_edit',
+    closeButtonSelector: '.popup__close-popup'
+  },
+  {
+    formSelector: '.popup__form_scope_edit',
+    submitHandle: ({ name, description }) => {
+
+      profileInfo.setUserInfo({name, description});
+      editPopup.close(); // --> сильно меня это смущает, хардкодить конкретную форму
+    }
+  });
+
+editPopup.setEventListeners();
+
+const addPopup = new PopupWithForm(
+  {
+    popupSelector: '.popup_scope_add',
+    closeButtonSelector: '.popup__close-popup'
+  },
+  {
+    formSelector: '.popup__form_scope_add',
+    submitHandle: ({ ['place-name']: place, ['place-url']: url }) => {
+
+      const newCardValues = {
+        url: url,
+        caption: place
+      }
+
+      const card = new Card(
+        {
+          cardContent: newCardValues,
+          templateSelector: '#card-template',
+          modalSelector: ".popup_scope_picture",
+          handleCardClick: ({ url, text }) => {
+
+            cardPopup.open({ url, text });
+          },
+          pushDeleteEvent: () => {
+
+            gallery.checkCardsAmount();
+          }
+        });
+
+      gallery.addItem(card.generateCard())
+
+      addPopup.close();// --> сильно меня это смущает, хардкодить конкретную форму
+    }
+  });
+
+addPopup.setEventListeners();
+
+const cardPopup = new PopupWithImage(
+  {
+    popupSelector: '.popup_scope_picture',
+    closeButtonSelector: '.popup__close-popup',
+    imageSelector: '.card-popup__image',
+    captionSelector: '.card-popup__caption'
+  });
+
+cardPopup.setEventListeners();
+
+
+const editFormValidation = new FormValidator(editFormConfig, editForm);
 editFormValidation.enableValidation();
+
+const addFormValidation = new FormValidator(addFormConfig, addForm);
 addFormValidation.enableValidation();
+
+

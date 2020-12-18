@@ -1,15 +1,16 @@
 
-import { cardsContainer, renderNoCards } from '../utils/render-utils.js';
-import { openModal, setCardPopupContent } from '../utils/popup-utils.js'
-
 export default class Card {
 
-  constructor({ cardContent: { url, caption, alt = caption }, templateSelector, modalSelector }) {
+  constructor({
+    cardContent: { url, caption, alt = caption },
+    templateSelector, modalSelector, handleCardClick, pushDeleteEvent }) {
 
     this._image = url;
     this._title = caption;
     this._altText = alt;
 
+    this._pushDeleteEvent = pushDeleteEvent;
+    this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector;
     this._popup = document.querySelector(modalSelector);
   }
@@ -32,17 +33,7 @@ export default class Card {
   _handleDeleteClick(evt) {
 
     evt.target.closest(".card").remove();
-
-    if (!cardsContainer.querySelector(".card")) {
-      renderNoCards();
-    }
-
-  }
-
-  _handleImageClick() {
-
-    openModal(this._popup);
-    setCardPopupContent(this._popup, this._image, this._title);
+    this._pushDeleteEvent();
   }
 
   _setEventListeners(cardElement) {
@@ -58,9 +49,9 @@ export default class Card {
     });
 
     cardElement.querySelector(".card__picture").addEventListener("click", () => {
-
-      this._handleImageClick()
-    });
+      this._handleCardClick({text: this._title, url: this._image});
+    }
+      );
 
   }
 
