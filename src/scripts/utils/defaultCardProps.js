@@ -1,37 +1,45 @@
+
+  import elbrusPhoto from '../../images/gallery/Эльбрус.jpg';
+  import shikhaniPhoto from '../../images/gallery/Шиханы.jpg';
+  import parkPhoto from '../../images/gallery/Джейъаско-Ассинский_заповедник.jpg';
+  import kluchevayaSopkaPhoto from '../../images/gallery/Ключевая_сопка.jpg';
+  import cavePhoto from '../../images/gallery/Кунгурская_пещера.jpg';
+  import stolbiPhoto from '../../images/gallery/Ленские_столбы.jpg';
+
   const defaultCardsPropertiesSet = [
   {
     caption:" Гора Эльбрус",
-    url: "./images/gallery/Эльбрус.jpg",
+    url: elbrusPhoto,
     alt:"Фото горы Эльбрус"
   },
 
   {
     caption:"Аракульские Шиханы",
-    url: "./images/gallery/Шиханы.jpg",
+    url: shikhaniPhoto,
     alt: "Фото Аракульских Шиханов"
   },
 
   {
     caption:"Джейъаско-Ассинский заповедник",
-    url: "./images/gallery/Джейъаско-Ассинский_заповедник.jpg",
+    url: parkPhoto,
     alt: "Фото Джейъаско-Ассинского заповедника",
   },
 
   {
-    caption: "Ключевая сопка",
-    url: "./images/gallery/Ключевая_сопка.jpg",
+    caption: "Ключевая Cопка",
+    url: kluchevayaSopkaPhoto,
     alt: "Фото вулкана Ключевая Сопка"
   },
 
   {
     caption: "Кунгурская_пещера",
-    url: "./images/gallery/Кунгурская_пещера.jpg",
+    url: cavePhoto,
     alt: "Фото Кунгурской пещеры"
   },
 
   {
     caption: "Ленские столбы",
-    url: "./images/gallery/Ленские_столбы.jpg",
+    url: stolbiPhoto,
     alt: "Фото Ленских столбов"
   },
 ]

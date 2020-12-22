@@ -8,7 +8,7 @@
 
   <link rel="shortcut icon" href="./images/favicon/icons8-зеркальная-камера-50.png" type="image/x-icon">
 
-  <link rel="stylesheet" href="./pages/index.css">
+
 </head>
 
 <body class="root">
@@ -16,19 +16,19 @@
   <div class="wrapper">
 
     <header class="header">
-      <img src="./images/header/logo.svg" alt="Логотип сайта 'Место'" class="header__logo">
+      <img src="<%=require('./images/header/logo.svg')%>" alt="Логотип сайта 'Место'" class="header__logo">
     </header>
 
     <main class="content">
 
       <section class="profile" aria-label="Профиль">
 
-        <img src="./images/profile/profile.jpg" alt="Фото профиля" class="profile__photo">
+        <img src="<%=require('./images/profile/profile.jpg')%>" alt="Фото профиля" class="profile__photo">
         <div class="profile__name-and-edit-button-container">
           <h1 class="profile__name">Мария Крацких</h1>
 
           <button type="button" class="profile__edit-profile">
-            <img class="profile__edit-profile-image" src="./images/profile/edit-button.svg"
+            <img class="profile__edit-profile-image" src="<%=require('./images/profile/edit-button.svg')%>"
               alt="Кнопка 'Редактировать профиль'">
           </button>
         </div>
@@ -37,14 +37,14 @@
         <p class="profile__description">Фотограф-любитель</p>
 
         <button type="button" class="profile__add-card">
-          <img class="profile__add-card-image" src="./images/profile/add-button.svg" alt="Кнопка 'Добавить карточку'">
+          <img class="profile__add-card-image" src="<%=require('./images/profile/add-button.svg')%>" alt="Кнопка 'Добавить карточку'">
         </button>
       </section>
 
       <section class="gallery" aria-label="Галерея">
 
         <div class="no-cards no-cards_hidden">
-          <img src="./images/no-cards.png" alt="Печаль" class="no-cards__image">
+          <img src="<%=require('./images/no-cards.png')%>" alt="Печаль" class="no-cards__image">
           <p class="no-cards__text">Ты чево наделал...</p>
         </div>
 
@@ -64,7 +64,7 @@
       <form class="popup__form popup__form_scope_edit" name="popup-edit-form" novalidate>
 
         <button type="button" class="popup__close-popup">
-          <img class="popup__close-popup-image" src="./images/popup/close-icon.svg"
+          <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
             alt="Кнопка 'Закрыть всплывающее окно'">
         </button>
         <h2 class="popup__header">Редактировать профиль</h2>
@@ -100,7 +100,7 @@
       <form class="popup__form popup__form_scope_add" name="popup-add-form" novalidate>
 
         <button type="button" class="popup__close-popup">
-          <img class="popup__close-popup-image" src="./images/popup/close-icon.svg"
+          <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
             alt="Кнопка 'Закрыть всплывающее окно'">
         </button>
         <h2 class="popup__header">Новое место</h2>
@@ -129,7 +129,7 @@
     <div class="card-popup">
 
       <button type="button" class="popup__close-popup popup__close-popup_scope_picture">
-        <img class="popup__close-popup-image" src="./images/popup/close-icon.svg"
+        <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
           alt="Кнопка 'Закрыть всплывающее окно'">
       </button>
 
@@ -149,7 +149,6 @@
     </article>
   </template>
 
-  <script type="module" src="./scripts/index.js"></script>
 
 </body>
 
