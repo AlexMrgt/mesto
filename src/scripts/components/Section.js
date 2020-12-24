@@ -1,6 +1,6 @@
 export default class Section {
 
-  constructor({contentList, renderer}, containerSelector){
+  constructor({ contentList, renderer }, containerSelector) {
 
     this._contentList = contentList;
     this._renderer = renderer;
@@ -8,35 +8,45 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  render(){
+  render() {
 
-    this._contentList.forEach( (contentItem) => {
+    this._contentList.forEach((contentItem) => {
       this._renderer(contentItem);
-    } )
+    })
   }
 
-  addItem(element){
+  // не уверен, что использование флагов - лучший выход
+  addItem(element, isCardFromAddForm = false) {
 
-    this._container.prepend(element);
+    (isCardFromAddForm)
+      ? this._container.prepend(element)
+      : this._container.append(element);
+
     this.checkCardsAmount();
   }
 
-  checkCardsAmount(){
+  addDefaultItem(element) {
 
-    if(!this._container.querySelector('.card')){
+    this._container.append(element);
+    this.checkCardsAmount();
+  }
+
+  checkCardsAmount() {
+
+    if (!this._container.querySelector('.card')) {
 
       this._renderNoCards();
     }
-    else{
+    else {
       this._renderHasCards();
     }
   }
 
-  _renderNoCards(){
+  _renderNoCards() {
     this._container.querySelector('.no-cards').classList.remove("no-cards_hidden");
   }
 
-  _renderHasCards(){
+  _renderHasCards() {
     this._container.querySelector('.no-cards').classList.add("no-cards_hidden");
   }
 

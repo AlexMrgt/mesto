@@ -1,4 +1,5 @@
 import Popup from './Popup.js';
+import { editDescription, editName } from '../utils/variables.js';
 
 export default class PopupWithForm extends Popup{
 
@@ -35,8 +36,15 @@ export default class PopupWithForm extends Popup{
 
       this._submitHandle(this._getInputValues());
 
-      this._form.reset();
     })
+  }
+
+  open(data={}){
+
+    super.open();
+
+    editName.value = data.name;
+    editDescription.value = data.description;
   }
 
   close(){
