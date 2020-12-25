@@ -5,36 +5,33 @@ import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import Section from "../scripts/components/Section.js";
 import UserInfo from "../scripts/components/UserUnfo.js";
-import FormValidator from "../scripts/components/Validation.js";
+import FormValidator from "../scripts/components/FornValidator.js";
 
 import {
   editForm,
   addForm,
   profileEditButton, profileAddButton,
   gallerySelector,
-  editFormConfig, addFormConfig
-} from "../scripts/utils/variables.js";
+  editFormConfig, addFormConfig } from "../scripts/utils/variables.js";
 
-import defaultCardsPropertiesSet from "../scripts/utils/defaultCardProps.js";
-
-const cardsData = defaultCardsPropertiesSet;
+import {cardsData} from "../scripts/utils/defaultCardProps.js";
 
 
 profileEditButton.addEventListener("click", () => {
 
-  editFormValidation.resetValidation();
-
   editPopup.open(profileInfo.getUserInfo());
+
+  editFormValidation.resetValidation();
 })
 
 profileAddButton.addEventListener("click", () => {
 
-  addFormValidation.resetValidation();
-
   addPopup.open();
+
+  addFormValidation.resetValidation();
 })
 
-// выглядит как что-то проклятое, вообще это, наверное, называется фабрикой класса?
+
 const createRawCard = (cardContent) => {
 
   const card = new Card(
@@ -105,7 +102,7 @@ const addPopup = new PopupWithForm(
     submitHandle: ({ ['place-name']: place, ['place-url']: url }) => {
 
       const cardElement = createRawCard({url: url, caption: place});
-      gallery.addItem(cardElement.generateCard(), true)
+      gallery.addItem(cardElement.generateCard())
 
       addPopup.close();
     }

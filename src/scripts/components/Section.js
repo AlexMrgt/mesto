@@ -15,12 +15,9 @@ export default class Section {
     })
   }
 
-  // не уверен, что использование флагов - лучший выход
-  addItem(element, isCardFromAddForm = false) {
+  addItem(element) {
 
-    (isCardFromAddForm)
-      ? this._container.prepend(element)
-      : this._container.append(element);
+    this._container.prepend(element)
 
     this.checkCardsAmount();
   }

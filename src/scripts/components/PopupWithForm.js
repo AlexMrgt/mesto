@@ -1,32 +1,42 @@
 import Popup from './Popup.js';
-import { editDescription, editName } from '../utils/variables.js';
 
-export default class PopupWithForm extends Popup{
+export default class PopupWithForm extends Popup {
 
-  constructor({popupSelector, closeButtonSelector}, {formSelector,submitHandle}){
+  constructor({ popupSelector, closeButtonSelector }, { formSelector, submitHandle }) {
 
-    super({popupSelector, closeButtonSelector});
+    super({ popupSelector, closeButtonSelector });
 
     this._form = this._popup.querySelector(formSelector);
+    this._inputList = this._form.querySelectorAll('.popup__field');
+
+
+
     this._submitHandle = submitHandle;
   }
 
-  _getInputValues(){
+  _getInputValues() {
 
-    this._inputList = this._form.querySelectorAll('.popup__field');
+
     this._inputValues = {};
 
 
     this._inputList.forEach(input => {
 
-        this._inputValues[input.name] = input.value;
-      });
+      this._inputValues[input.name] = input.value;
+    });
 
     return this._inputValues;
   }
 
+  _setInputValues(dataFromPage) {
 
-  setEventListeners(){
+    this._inputList.forEach(input => {
+
+      input.value = dataFromPage[input.name] || ''; // без || при передаче пустого объекта в поля запишется undefind
+    });
+  }
+
+  setEventListeners() {
 
     super.setEventListeners();
 
@@ -39,15 +49,14 @@ export default class PopupWithForm extends Popup{
     })
   }
 
-  open(data={}){
+  open(dataFromPage = {}) {
 
     super.open();
 
-    editName.value = data.name;
-    editDescription.value = data.description;
+    this._setInputValues(dataFromPage);
   }
 
-  close(){
+  close() {
 
     super.close();
 

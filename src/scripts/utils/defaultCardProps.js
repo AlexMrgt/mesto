@@ -44,5 +44,4 @@
   },
 ]
 
-
-export default defaultCardsPropertiesSet;
+export  {defaultCardsPropertiesSet as cardsData};
