@@ -231,7 +231,8 @@ const editImagePopup = new PopupWithForm({
       renderLoading(editImageSubmitButton, true);
 
       api.editUserPhoto({ avatar })
-        .then( responce => { // тут без деструктурицазии понятнее, мне кажется
+        .then( responce => {
+           // тут без деструктурицазии понятнее, мне кажется
           profileInfo.setAvatar(responce.avatar)
         })
         .catch(err => {
