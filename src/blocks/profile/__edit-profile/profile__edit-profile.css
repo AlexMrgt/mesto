@@ -2,7 +2,8 @@
 
   border: none;
   outline: none;
-  background-color: black;
+  background-image: url("../../../images/profile/edit-button.svg");
+  background-color: transparent;
 
   width: 24px;
   height: 24px;
@@ -10,6 +11,8 @@
   cursor: pointer;
 
   transition: 0.2s;
+
+  margin-top: 5px;
 }
 
 .profile__edit-profile:hover{
@@ -20,7 +23,8 @@
 @media screen and (max-width: 898px){
   .profile__edit-profile{
 
-    width: 20px;
+    background-image: url("../../../images/profile/mobile-edit-button.svg");
+    background-repeat: no-repeat;
 
     margin-top: 7px;
     padding: 0;

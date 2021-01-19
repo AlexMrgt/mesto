@@ -1,24 +1,21 @@
 export default class Section {
 
-  constructor({ contentList, renderer }, containerSelector) {
+  constructor({ renderer }, containerSelector) {
 
-    this._contentList = contentList;
     this._renderer = renderer;
-
     this._container = document.querySelector(containerSelector);
   }
 
-  render() {
+  render(userId, contentList) {
 
-    this._contentList.forEach((contentItem) => {
-      this._renderer(contentItem);
+    contentList.forEach((contentItem) => {
+      this._renderer(userId, contentItem);
     })
   }
 
   addItem(element) {
 
     this._container.prepend(element)
-
     this.checkCardsAmount();
   }
 
@@ -46,6 +43,7 @@ export default class Section {
   _renderHasCards() {
     this._container.querySelector('.no-cards').classList.add("no-cards_hidden");
   }
+
 
 }
 

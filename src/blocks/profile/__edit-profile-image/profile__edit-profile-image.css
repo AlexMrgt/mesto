@@ -1,15 +1,22 @@
 .profile__edit-profile-image{
-  width: 26px;
-  height: 26px;
-}
 
+  background-image: url('../../../images/profile/edit_icon.svg');
+  border: none;
+  outline: none;
+  background-color: transparent;
 
-@media screen and (max-width: 898px){
-  .profile__edit-profile-image{
+  width: 25px;
+  height: 25px;
 
-    margin: 0;
+  cursor: pointer;
 
-    width: 20px;
-    height: 20px;
-  }
+  transition: 0.4s;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  Transform: translate(-50%, -50%);
+
+  opacity: 0;
+
 }

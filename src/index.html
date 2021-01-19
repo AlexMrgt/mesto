@@ -23,21 +23,22 @@
 
       <section class="profile" aria-label="Профиль">
 
-        <img src="<%=require('./images/profile/profile.jpg')%>" alt="Фото профиля" class="profile__photo">
-        <div class="profile__name-and-edit-button-container">
-          <h1 class="profile__name">Мария Крацких</h1>
-
-          <button type="button" class="profile__edit-profile">
-            <img class="profile__edit-profile-image" src="<%=require('./images/profile/edit-button.svg')%>"
-              alt="Кнопка 'Редактировать профиль'">
-          </button>
+        <div class="profile__image-and-edit-button-container">
+          <img src="" alt="Фото профиля" class="profile__photo">
+          <img src="<%=require('./images/profile/edit_icon.svg')%>" class="profile__edit-profile-image" >
         </div>
 
+        <div class="profile__name-and-edit-button-container">
+          <h1 class="profile__name"></h1>
 
-        <p class="profile__description">Фотограф-любитель</p>
+          <button type="button" class="profile__edit-profile"></button>
+        </div>
+
+        <p class="profile__description"></p>
 
         <button type="button" class="profile__add-card">
-          <img class="profile__add-card-image" src="<%=require('./images/profile/add-button.svg')%>" alt="Кнопка 'Добавить карточку'">
+          <img class="profile__add-card-image" src="<%=require('./images/profile/add-button.svg')%>"
+            alt="Кнопка 'Добавить карточку'">
         </button>
       </section>
 
@@ -53,7 +54,7 @@
     </main>
 
     <footer class="footer">
-      <p class="footer__text">&copy; 2020 Mesto Russia</p>
+      <p class="footer__text">&copy; 2020 Mesto.Russia</p>
     </footer>
 
   </div>
@@ -140,12 +141,60 @@
 
   </div>
 
+  <div class="popup popup_scope_edit-avatar">
+
+    <div class="popup__wrapper">
+
+      <form class="popup__form popup__form_scope_edit-avatar" name="popup-edit-avatar-form" novalidate>
+
+        <button type="button" class="popup__close-popup">
+          <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
+            alt="Кнопка 'Закрыть всплывающее окно'">
+        </button>
+        <h2 class="popup__header">Обновить аватар</h2>
+
+        <label class="popup__form-label">
+          <input type="url" id="avatar-url-input" class="popup__field popup__field_scope_avatar-url" autocomplete="off" name="avatar-url" placeholder="Ссылка на фото" required>
+          <span id="avatar-url-input-error" class="popup__input-error"></span>
+        </label>
+
+        <button type="submit" class="popup__save-button popup__save-button_scope_edit-avatar">Сохранить</button>
+
+      </form>
+    </div>
+
+  </div>
+
+  <div class="popup popup_scope_confirm-card-delete">
+
+    <div class="popup__wrapper">
+
+      <form class="popup__form popup__form_scope_confirm-delete" name="confirm-delete-form" novalidate>
+
+        <button type="button" class="popup__close-popup">
+          <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
+            alt="Кнопка 'Закрыть всплывающее окно'">
+        </button>
+        <h2 class="popup__header">Вы уверены?</h2>
+
+        <button type="submit" class="popup__save-button popup__save-button_scope_confirm-delete">Да</button>
+
+      </form>
+    </div>
+
+  </div>
+
+
   <template id="card-template">
     <article class="card">
       <button type="button" class="card__delete-card"></button>
       <img src="#" alt="#" class="card__picture">
       <h2 class="card__title"></h2>
-      <button type="button" class="card__like"></button>
+      <div class="card__like-container">
+        <button type="button" class="card__like"></button>
+        <p class="card__like-counter"></p>
+      </div>
+
     </article>
   </template>
 

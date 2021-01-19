@@ -1,20 +1,12 @@
 .profile__photo{
+
   width: 120px;
   height: 120px;
 
   object-fit: cover;
   border-radius: 50%;
 
-  grid-area: photo;
+  transition: 0.4s;
 }
 
 
-
-@media screen and (max-width:  898px){
-  .profile__photo{
-
-    margin-bottom: 26px;
-
-    justify-self: center;
-  }
-}

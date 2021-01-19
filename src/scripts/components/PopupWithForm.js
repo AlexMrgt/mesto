@@ -2,23 +2,23 @@ import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
 
-  constructor({ popupSelector, closeButtonSelector }, { formSelector, submitHandle }) {
+  constructor({
 
-    super({ popupSelector, closeButtonSelector });
+   selectors: {popupSelector, closeButtonSelector, formSelector},
+   handler: {submitHandle}
+  }) {
+
+    super({selectors:{ popupSelector, closeButtonSelector }});
 
     this._form = this._popup.querySelector(formSelector);
     this._inputList = this._form.querySelectorAll('.popup__field');
-
-
 
     this._submitHandle = submitHandle;
   }
 
   _getInputValues() {
 
-
     this._inputValues = {};
-
 
     this._inputList.forEach(input => {
 
@@ -28,11 +28,11 @@ export default class PopupWithForm extends Popup {
     return this._inputValues;
   }
 
-  _setInputValues(dataFromPage) {
+  _setInputValues( dataFromPage ) {
 
     this._inputList.forEach(input => {
 
-      input.value = dataFromPage[input.name] || ''; // без || при передаче пустого объекта в поля запишется undefind
+      input.value = dataFromPage[input.name] || '';  //  без || при передаче пустого объекта в поля запишется undefind
     });
   }
 
@@ -49,7 +49,7 @@ export default class PopupWithForm extends Popup {
     })
   }
 
-  open(dataFromPage = {}) {
+  open( dataFromPage = {} ) {
 
     super.open();
 
