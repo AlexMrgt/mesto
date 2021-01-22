@@ -1,5 +1,7 @@
 export default class Api {
 
+  //.then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+
   constructor(
     {
       baseUrl, cohort,
@@ -14,6 +16,11 @@ export default class Api {
 
   }
 
+  _checkResponce(responce){
+
+    return responce.ok ?  responce.json() : Promise.reject(`Ошибка: ${responce.status}`)
+  }
+
   getUserInfo(){
 
     return fetch(`${this._baseUrl}/${this._cohort}/users/me`, {
@@ -21,7 +28,7 @@ export default class Api {
         authorization: this._token
       }
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._checkResponce(res))
   }
 
   editTextUserInfo({name, description}){
@@ -37,7 +44,7 @@ export default class Api {
         about: description
       })
     })
-    .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+    .then(res => this._checkResponce(res))
   }
 
   editUserPhoto({avatar}){
@@ -52,7 +59,7 @@ export default class Api {
         avatar: avatar
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._checkResponce(res))
   }
 
   getDefaultCards(){
@@ -63,7 +70,7 @@ export default class Api {
         authorization: this._token
       }
     })
-        .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+        .then(res => this._checkResponce(res))
 
   }
 
@@ -80,7 +87,7 @@ export default class Api {
         link: url
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._checkResponce(res))
   }
 
   setLike(cardId){
@@ -92,7 +99,7 @@ export default class Api {
         'Content-Type': 'application/json'
       }
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._checkResponce(res))
   }
 
   deleteLike(cardId){
@@ -104,7 +111,7 @@ export default class Api {
         'Content-Type': 'application/json'
       }
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._checkResponce(res))
   }
 
   deleteCard(cardId){
@@ -116,7 +123,7 @@ export default class Api {
         'Content-Type': 'application/json'
       }
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
+      .then(res => this._checkResponce(res))
 
   }
 }

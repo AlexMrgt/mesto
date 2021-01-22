@@ -44,9 +44,19 @@ export default class Card {
     return cardTemplate;
   }
 
+
   _toggleLikeStatus(evt) {
 
     evt.target.classList.toggle('card__like_active');
+  }
+
+  _setDefaultLikeStatus(card) {
+
+    this._likes.forEach(person => {
+
+      if (person._id == this._userId)
+        card.querySelector('.card__like').classList.add('card__like_active');
+    })
   }
 
   _isLiked() {
@@ -73,20 +83,12 @@ export default class Card {
 
     cardElement.querySelector(".card__picture").addEventListener("click", () => {
 
-      this._handleCardClick( this._imageUrl, this._title,  );
+      this._handleCardClick(this._imageUrl, this._title,);
     }
     );
 
   }
 
-  _setDefaultLikeStatus(card) {
-
-    this._likes.forEach(person => {
-
-      if (person._id == this._userId)
-        card.querySelector('.card__like').classList.add('card__like_active');
-    })
-  }
 
   setLikes(likes, evt) {
 
@@ -104,20 +106,21 @@ export default class Card {
 
     this._element = this._getTemplate();
 
-    // вроде нет необходимости выносить это в метод ?
+    const cardImage = this._element.querySelector('.card__picture');
+
+    cardImage.src = this._imageUrl;
+    cardImage.alt = this._altText;
+    this._element.querySelector('.card__title').textContent = this._title;
+    this._element.querySelector('.card__like-counter').textContent = this._likes.length;
+
+    this._setDefaultLikeStatus(this._element);
+
     if (this._userId !== this._cardOwnerId) {
 
       this._element.querySelector('.card__delete-card').remove();
     }
 
     this._setEventListeners(this._element);
-
-    this._element.querySelector('.card__picture').src = this._imageUrl;
-    this._element.querySelector('.card__picture').alt = this._altText;
-    this._element.querySelector('.card__title').textContent = this._title;
-    this._element.querySelector('.card__like-counter').textContent = this._likes.length;
-
-    this._setDefaultLikeStatus(this._element);
 
     return this._element;
   }

@@ -10,7 +10,6 @@ import FormValidator from "../scripts/components/FornValidator.js";
 import Api from "../scripts/components/Api.js";
 
 import {
-  profileName, profileDescription,
   editForm,
   addForm,
   editAvatarForm,
@@ -19,29 +18,6 @@ import {
   gallerySelector,
   editFormConfig, addFormConfig, editAvatarFormConfig
 } from "../scripts/utils/variables.js";
-
-
-profileEditButton.addEventListener("click", () => {
-
-  // выглядит колхозно
-  editPopup.open({ name: profileName.textContent, description: profileDescription.textContent });
-
-  editFormValidation.resetValidation();
-})
-
-profileAddButton.addEventListener("click", () => {
-
-  addPopup.open();
-
-  addFormValidation.resetValidation();
-})
-
-profileEditImageButton.addEventListener("click", () => {
-
-  editImagePopup.open();
-
-  editAvatarFormValidation.resetValidation();
-})
 
 
 // функции, наверное, надо убрать куда-то
@@ -53,7 +29,7 @@ const renderLoading = (button, isLoading) => {
   }
   else {
 
-    button.textContent = button.defaultText;
+    button.textContent = button.defaultText; // если кто-то другой откроет код, то как этому человеку понять, где изначально появилось свойство defaultText? GoToDefenition по свойству не работает
   }
 };
 
@@ -72,9 +48,9 @@ const createRawCard = (userId, cardContent) => {
 
       handlers: {
 
-        handleCardClick: ( url, text ) => {
+        handleCardClick: (url, text) => {
 
-          cardPopup.open( url, text );
+          cardPopup.open(url, text);
         },
 
         handleLikeClick: (cardId, isLiked, evt) => {
@@ -132,6 +108,30 @@ const createRawCard = (userId, cardContent) => {
 }
 
 
+let currentUserId = ''; // выглядит не очень хорошо
+
+
+profileEditButton.addEventListener("click", () => {
+
+  editPopup.open(profileInfo.getUserInfo());
+
+  editFormValidation.resetValidation();
+})
+
+profileAddButton.addEventListener("click", () => {
+
+  addPopup.open();
+
+  addFormValidation.resetValidation();
+})
+
+profileEditImageButton.addEventListener("click", () => {
+
+  editImagePopup.open();
+
+  editAvatarFormValidation.resetValidation();
+})
+
 
 const profileInfo = new UserInfo({
   nameSelector: '.profile__name',
@@ -168,14 +168,16 @@ Promise.all([
 ])
   .then(values => {
 
-    profileInfo.setFullUserInfo(values[0]); //как-то более понятно бы передать
-    gallery.render(values[0]._id, values[1]);
+    const [userData, cards] = values;
+    currentUserId = userData._id;
+
+    profileInfo.setFullUserInfo(userData); //как-то более понятно бы передать
+    gallery.render(userData._id, cards);
   })
   .catch(err => {
 
     console.log(`Error text: ${err} `)
   });
-
 
 
 const editPopup = new PopupWithForm({
@@ -198,6 +200,8 @@ const editPopup = new PopupWithForm({
 
           profileInfo.setTextUserInfo({ name, about });
 
+          editPopup.close();
+
         })
         .catch(err => {
           console.log(`Error text: ${err} `)
@@ -207,7 +211,7 @@ const editPopup = new PopupWithForm({
           renderLoading(editSubmitButton, false);
         })
 
-      editPopup.close();
+
     }
   }
 });
@@ -231,9 +235,11 @@ const editImagePopup = new PopupWithForm({
       renderLoading(editImageSubmitButton, true);
 
       api.editUserPhoto({ avatar })
-        .then( responce => {
-           // тут без деструктурицазии понятнее, мне кажется
-          profileInfo.setAvatar(responce.avatar)
+        .then(responce => {
+
+          profileInfo.setAvatar(responce.avatar);
+
+          editImagePopup.close();
         })
         .catch(err => {
           console.log(`Error text: ${err} `)
@@ -243,7 +249,7 @@ const editImagePopup = new PopupWithForm({
           renderLoading(editImageSubmitButton, false);
         })
 
-      editImagePopup.close();
+
     }
   }
 });
@@ -266,14 +272,13 @@ const addPopup = new PopupWithForm({
 
       renderLoading(addSubmitButton, true);
 
-      Promise.all([
-        api.getUserInfo(), // для получения ID текущего пользователя
-        api.addNewCard({ place, url })
-      ])
-        .then( values => {
+      api.addNewCard({ place, url })
+        .then(values => {
 
-          const cardElement = createRawCard(values[0]._id, values[1]);
+          const cardElement = createRawCard(currentUserId, values);
           gallery.addItem(cardElement.generateCard());
+
+          addPopup.close();
         })
         .catch(err => {
 
@@ -283,12 +288,11 @@ const addPopup = new PopupWithForm({
 
           renderLoading(addSubmitButton, false);
         });
-
-      addPopup.close();
     }
   }
 
 });
+
 
 addPopup.setEventListeners();
 
@@ -317,7 +321,6 @@ const confirmPopup = new PopupConfirm({
 });
 
 confirmPopup.setEventListeners();
-
 
 
 
