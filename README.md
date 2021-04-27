@@ -40,6 +40,6 @@ npm run dev
 
 ## Перспективы
 
-+ :heavy_check_mark: Перенос кода с ванильного JS(es6) на React.js (ссылка на репозиторий)
-+ :heavy_check_mark: Написание свого бэкэнда для проекта на express + mongodb + celebtate-validation (ссылка на репозиторий)
-+ :heavy_check_mark: Объединение фронтенда и бэкэнда в едином репозитории (ссылка на репозиторий)
++ :heavy_check_mark: Перенос кода с ванильного JS(es6) на React.js [ссылка на репозиторий](https://github.com/AlexMrgt/react-mesto-auth)
++ :heavy_check_mark: Написание свого бэкэнда для проекта на `express` + `mongodb` + `celebtate-validation` [ссылка на репозиторий](https://github.com/AlexMrgt/express-mesto)
++ :heavy_check_mark: Объединение фронтенда и бэкэнда в едином репозитории [ссылка на репозиторий](https://github.com/AlexMrgt/react-mesto-api-full)
