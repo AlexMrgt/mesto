@@ -13,190 +13,191 @@
 
 <body class="root">
 
-  <div class="wrapper">
+    <div class="wrapper">
 
-    <header class="header">
-      <img src="<%=require('./images/header/logo.svg')%>" alt="Логотип сайта 'Место'" class="header__logo">
-    </header>
+      <header class="header">
+        <img src="<%=require('./images/header/logo.svg')%>" alt="Логотип сайта 'Место'" class="header__logo">
+      </header>
 
-    <main class="content">
+      <main class="content">
 
-      <section class="profile" aria-label="Профиль">
+        <section class="profile" aria-label="Профиль">
 
-        <div class="profile__image-and-edit-button-container">
-          <img src="#" alt="Фото профиля" class="profile__photo">
-          <img src="<%=require('./images/profile/edit_icon.svg')%>" class="profile__edit-profile-image" >
-        </div>
+          <div class="profile__image-and-edit-button-container">
+            <img src="#" alt="Фото профиля" class="profile__photo">
+            <img src="<%=require('./images/profile/edit_icon.svg')%>" class="profile__edit-profile-image">
+          </div>
 
-        <div class="profile__name-and-edit-button-container">
-          <h1 class="profile__name"></h1>
+          <div class="profile__name-and-edit-button-container">
+            <h1 class="profile__name"></h1>
 
-          <button type="button" class="profile__edit-profile"></button>
-        </div>
+            <button type="button" class="profile__edit-profile"></button>
+          </div>
 
-        <p class="profile__description"></p>
+          <p class="profile__description"></p>
 
-        <button type="button" class="profile__add-card">
-          <img class="profile__add-card-image" src="<%=require('./images/profile/add-button.svg')%>"
-            alt="Кнопка 'Добавить карточку'">
-        </button>
-      </section>
+          <button type="button" class="profile__add-card">
+            <img class="profile__add-card-image" src="<%=require('./images/profile/add-button.svg')%>"
+              alt="Кнопка 'Добавить карточку'">
+          </button>
+        </section>
 
-      <section class="gallery" aria-label="Галерея">
+        <section class="gallery" aria-label="Галерея">
 
-        <div class="no-cards no-cards_hidden">
-          <img src="<%=require('./images/no-cards.png')%>" alt="Печаль" class="no-cards__image">
-          <p class="no-cards__text">Ты чево наделал...</p>
-        </div>
+          <div class="no-cards no-cards_hidden">
+            <img src="<%=require('./images/no-cards.png')%>" alt="Печаль" class="no-cards__image">
+            <p class="no-cards__text">Ты чево наделал...</p>
+          </div>
 
-      </section>
+        </section>
 
-    </main>
+      </main>
 
-    <footer class="footer">
-      <p class="footer__text">&copy; 2020 Mesto.Russia</p>
-    </footer>
-
-  </div>
-
-  <div class="popup popup_scope_edit">
-
-    <div class="popup__wrapper">
-      <form class="popup__form popup__form_scope_edit" name="popup-edit-form" novalidate>
-
-        <button type="button" class="popup__close-popup">
-          <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
-            alt="Кнопка 'Закрыть всплывающее окно'">
-        </button>
-        <h2 class="popup__header">Редактировать профиль</h2>
-
-        <label class="popup__form-label">
-
-          <input type="text" id="name-input" class="popup__field popup__field_scope_name" name="name" minlength="2"
-            maxlength="40" autocomplete="off" required>
-          <span id="name-input-error" class="popup__input-error"></span>
-
-        </label>
-
-        <label class="popup__form-label">
-
-          <input type="text" id="description-input" class="popup__field popup__field_scope_description"
-            name="description" minlength="2" maxlength="200" autocomplete="off" required>
-
-          <span id="description-input-error" class="popup__input-error"></span>
-
-        </label>
-
-        <button type="submit" class="popup__save-button popup__save-button_scope_edit">Сохранить</button>
-
-      </form>
-    </div>
-
-  </div>
-
-  <div class="popup popup_scope_add">
-
-    <div class="popup__wrapper">
-
-      <form class="popup__form popup__form_scope_add" name="popup-add-form" novalidate>
-
-        <button type="button" class="popup__close-popup">
-          <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
-            alt="Кнопка 'Закрыть всплывающее окно'">
-        </button>
-        <h2 class="popup__header">Новое место</h2>
-
-        <label class="popup__form-label">
-          <input type="text" id="picture-input" class="popup__field popup__field_scope_pic-name" autocomplete="off"
-            name="place-name" placeholder="Название" minlength="2" maxlength="30" required>
-          <span id="picture-input-error" class="popup__input-error"></span>
-        </label>
-
-        <label class="popup__form-label">
-          <input type="url" id="url-input" class="popup__field popup__field_scope_url" autocomplete="off"
-            name="place-url" placeholder="Ссылка на картинку" required>
-          <span id="url-input-error" class="popup__input-error"></span>
-        </label>
-
-        <button type="submit" class="popup__save-button popup__save-button_scope_add">Создать</button>
-
-      </form>
-    </div>
-
-  </div>
-
-  <div class="popup popup_scope_picture">
-
-    <div class="card-popup">
-
-      <button type="button" class="popup__close-popup popup__close-popup_scope_picture">
-        <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
-          alt="Кнопка 'Закрыть всплывающее окно'">
-      </button>
-
-      <img src="#" alt="#" class="card-popup__image">
-      <p class="card-popup__caption"></p>
+      <footer class="footer">
+        <p class="footer__text">&copy; 2020 Mesto.Russia</p>
+      </footer>
 
     </div>
 
-  </div>
+    <div class="popup popup_scope_edit">
 
-  <div class="popup popup_scope_edit-avatar">
+      <div class="popup__wrapper">
+        <form class="popup__form popup__form_scope_edit" name="popup-edit-form" novalidate>
 
-    <div class="popup__wrapper">
+          <button type="button" class="popup__close-popup">
+            <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
+              alt="Кнопка 'Закрыть всплывающее окно'">
+          </button>
+          <h2 class="popup__header">Редактировать профиль</h2>
 
-      <form class="popup__form popup__form_scope_edit-avatar" name="popup-edit-avatar-form" novalidate>
+          <label class="popup__form-label">
 
-        <button type="button" class="popup__close-popup">
-          <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
-            alt="Кнопка 'Закрыть всплывающее окно'">
-        </button>
-        <h2 class="popup__header">Обновить аватар</h2>
+            <input type="text" id="name-input" class="popup__field popup__field_scope_name" name="name" minlength="2"
+              maxlength="40" autocomplete="off" required>
+            <span id="name-input-error" class="popup__input-error"></span>
 
-        <label class="popup__form-label">
-          <input type="url" id="avatar-url-input" class="popup__field popup__field_scope_avatar-url" autocomplete="off" name="avatar-url" placeholder="Ссылка на фото" required>
-          <span id="avatar-url-input-error" class="popup__input-error"></span>
-        </label>
+          </label>
 
-        <button type="submit" class="popup__save-button popup__save-button_scope_edit-avatar">Сохранить</button>
+          <label class="popup__form-label">
 
-      </form>
-    </div>
+            <input type="text" id="description-input" class="popup__field popup__field_scope_description"
+              name="description" minlength="2" maxlength="200" autocomplete="off" required>
 
-  </div>
+            <span id="description-input-error" class="popup__input-error"></span>
 
-  <div class="popup popup_scope_confirm-card-delete">
+          </label>
 
-    <div class="popup__wrapper">
+          <button type="submit" class="popup__save-button popup__save-button_scope_edit">Сохранить</button>
 
-      <form class="popup__form popup__form_scope_confirm-delete" name="confirm-delete-form" novalidate>
-
-        <button type="button" class="popup__close-popup">
-          <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
-            alt="Кнопка 'Закрыть всплывающее окно'">
-        </button>
-        <h2 class="popup__header">Вы уверены?</h2>
-
-        <button type="submit" class="popup__save-button popup__save-button_scope_confirm-delete">Да</button>
-
-      </form>
-    </div>
-
-  </div>
-
-
-  <template id="card-template">
-    <article class="card">
-      <button type="button" class="card__delete-card"></button>
-      <img src="#" alt="#" class="card__picture">
-      <h2 class="card__title"></h2>
-      <div class="card__like-container">
-        <button type="button" class="card__like"></button>
-        <p class="card__like-counter"></p>
+        </form>
       </div>
 
-    </article>
-  </template>
+    </div>
+
+    <div class="popup popup_scope_add">
+
+      <div class="popup__wrapper">
+
+        <form class="popup__form popup__form_scope_add" name="popup-add-form" novalidate>
+
+          <button type="button" class="popup__close-popup">
+            <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
+              alt="Кнопка 'Закрыть всплывающее окно'">
+          </button>
+          <h2 class="popup__header">Новое место</h2>
+
+          <label class="popup__form-label">
+            <input type="text" id="picture-input" class="popup__field popup__field_scope_pic-name" autocomplete="off"
+              name="place-name" placeholder="Название" minlength="2" maxlength="30" required>
+            <span id="picture-input-error" class="popup__input-error"></span>
+          </label>
+
+          <label class="popup__form-label">
+            <input type="url" id="url-input" class="popup__field popup__field_scope_url" autocomplete="off"
+              name="place-url" placeholder="Ссылка на картинку" required>
+            <span id="url-input-error" class="popup__input-error"></span>
+          </label>
+
+          <button type="submit" class="popup__save-button popup__save-button_scope_add">Создать</button>
+
+        </form>
+      </div>
+
+    </div>
+
+    <div class="popup popup_scope_picture">
+
+      <div class="card-popup">
+
+        <button type="button" class="popup__close-popup popup__close-popup_scope_picture">
+          <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
+            alt="Кнопка 'Закрыть всплывающее окно'">
+        </button>
+
+        <img src="#" alt="#" class="card-popup__image">
+        <p class="card-popup__caption"></p>
+
+      </div>
+
+    </div>
+
+    <div class="popup popup_scope_edit-avatar">
+
+      <div class="popup__wrapper">
+
+        <form class="popup__form popup__form_scope_edit-avatar" name="popup-edit-avatar-form" novalidate>
+
+          <button type="button" class="popup__close-popup">
+            <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
+              alt="Кнопка 'Закрыть всплывающее окно'">
+          </button>
+          <h2 class="popup__header">Обновить аватар</h2>
+
+          <label class="popup__form-label">
+            <input type="url" id="avatar-url-input" class="popup__field popup__field_scope_avatar-url"
+              autocomplete="off" name="avatar-url" placeholder="Ссылка на фото" required>
+            <span id="avatar-url-input-error" class="popup__input-error"></span>
+          </label>
+
+          <button type="submit" class="popup__save-button popup__save-button_scope_edit-avatar">Сохранить</button>
+
+        </form>
+      </div>
+
+    </div>
+
+    <div class="popup popup_scope_confirm-card-delete">
+
+      <div class="popup__wrapper">
+
+        <form class="popup__form popup__form_scope_confirm-delete" name="confirm-delete-form" novalidate>
+
+          <button type="button" class="popup__close-popup">
+            <img class="popup__close-popup-image" src="<%=require('./images/popup/close-icon.svg')%>"
+              alt="Кнопка 'Закрыть всплывающее окно'">
+          </button>
+          <h2 class="popup__header">Вы уверены?</h2>
+
+          <button type="submit" class="popup__save-button popup__save-button_scope_confirm-delete">Да</button>
+
+        </form>
+      </div>
+
+    </div>
+
+
+    <template id="card-template">
+      <article class="card">
+        <button type="button" class="card__delete-card"></button>
+        <img src="#" alt="#" class="card__picture">
+        <h2 class="card__title"></h2>
+        <div class="card__like-container">
+          <button type="button" class="card__like"></button>
+          <p class="card__like-counter"></p>
+        </div>
+
+      </article>
+    </template>
 
 
 </body>
